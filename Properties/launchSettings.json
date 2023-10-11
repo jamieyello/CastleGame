@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Castle": {
+      "commandName": "Project"
+    },
+    "Dubug And Run": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Godot\\Godot.exe",
+      "commandLineArgs": "--path . --verbose",
+      "workingDirectory": ".",
+      "nativeDebugging": true
+    }
+  }
+}

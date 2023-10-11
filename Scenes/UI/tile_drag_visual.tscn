@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dun71rbat3n8r"]
+
+[ext_resource type="Script" path="res://Scenes/UI/TileDragVisual.cs" id="1_vutj6"]
+[ext_resource type="Resource" uid="uid://dxuf4yqvsi5at" path="res://Resources/TileData/VillageData.tres" id="2_nh5os"]
+
+[node name="TileDragVisual" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_vutj6")
+Tile = ExtResource("2_nh5os")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2

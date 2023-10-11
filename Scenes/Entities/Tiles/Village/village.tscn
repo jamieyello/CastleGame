@@ -1,0 +1,98 @@
+[gd_scene load_steps=8 format=3 uid="uid://ep0bgyam1dce"]
+
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/village.cs" id="1_ghxk3"]
+[ext_resource type="Texture2D" uid="uid://cgyfj02fxlndx" path="res://Sprites/village_tile.png" id="1_y70ab"]
+[ext_resource type="PackedScene" uid="uid://d0lisl2ip3qui" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.tscn" id="2_5o0vh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0s6ar"]
+size = Vector2(28, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sg3j1"]
+size = Vector2(24, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l30q3"]
+size = Vector2(28, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xeb41"]
+size = Vector2(16, 24)
+
+[node name="Village" type="CharacterBody2D"]
+position = Vector2(112, 244)
+script = ExtResource("1_ghxk3")
+
+[node name="VillageSprite" type="Sprite2D" parent="."]
+scale = Vector2(4, 4)
+texture = ExtResource("1_y70ab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_0s6ar")
+disabled = true
+
+[node name="BuildingCollision" type="Node2D" parent="."]
+
+[node name="TownHall" type="StaticBody2D" parent="BuildingCollision"]
+position = Vector2(-24, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingCollision/TownHall"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_sg3j1")
+
+[node name="Hospital" type="StaticBody2D" parent="BuildingCollision"]
+position = Vector2(6, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingCollision/Hospital"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_l30q3")
+
+[node name="Library" type="StaticBody2D" parent="BuildingCollision"]
+position = Vector2(-36, -29)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingCollision/Library"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_xeb41")
+
+[node name="Walls" type="StaticBody2D" parent="BuildingCollision"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Walls"]
+polygon = PackedVector2Array(-48, -56, -56, -56, -56, 56, 56, 56, 56, -56, -39, -56, -39, -48, 48, -48, 48, 48, 8, 48, 8, 44, -8, 44, -8, 48, -48, 48, -48, -48, -39, -48, -39, -56, -56, -56)
+
+[node name="Hut" type="StaticBody2D" parent="BuildingCollision"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Hut"]
+polygon = PackedVector2Array(-10, -16, -16, -16, -20, -20, -20, -32, -12, -40, -8, -40, 0, -32, 0, -20, -4, -16)
+
+[node name="Spawners" type="Node2D" parent="."]
+
+[node name="Spawner" type="Node2D" parent="Spawners"]
+position = Vector2(93, -68)
+
+[node name="LittleGuy" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(-33, 27)
+
+[node name="LittleGuy2" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(-15, 30)
+
+[node name="LittleGuy3" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(-4, -8)
+
+[node name="LittleGuy4" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(-39, -9)
+
+[node name="LittleGuy5" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(5, -39)
+
+[node name="LittleGuy6" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(36, 19)
+
+[node name="LittleGuy7" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(27, 4)
+
+[node name="LittleGuy8" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(36, -25)
+
+[node name="LittleGuy9" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(21, 37)
+
+[node name="LittleGuy10" parent="." instance=ExtResource("2_5o0vh")]
+position = Vector2(-18, -10)

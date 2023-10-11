@@ -1,0 +1,46 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3fv048p2asg6"]
+
+[ext_resource type="Script" path="res://Scenes/UI/TileDragButton.cs" id="1_bn4t3"]
+
+[node name="TileDragButton" type="Button"]
+custom_minimum_size = Vector2(200, 80)
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -250.0
+offset_bottom = 80.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_bn4t3")
+
+[node name="PreviewSprite" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 18.0
+offset_right = 83.0
+offset_bottom = 76.0
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 16.0
+offset_right = 157.0
+offset_bottom = 42.0
+text = "No Name"
+
+[node name="DescriptionLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 85.0
+offset_top = 40.0
+offset_right = 125.0
+offset_bottom = 63.0
+text = "No description"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="button_down" from="." to="." method="_OnButtonDown"]
+[connection signal="button_up" from="." to="." method="_OnButtonUp"]
+[connection signal="mouse_exited" from="." to="." method="_OnMouseExited"]
