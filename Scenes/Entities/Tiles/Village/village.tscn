@@ -17,7 +17,6 @@ size = Vector2(28, 28)
 size = Vector2(16, 24)
 
 [node name="Village" type="CharacterBody2D"]
-position = Vector2(112, 244)
 script = ExtResource("1_ghxk3")
 
 [node name="VillageSprite" type="Sprite2D" parent="."]

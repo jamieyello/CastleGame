@@ -44,9 +44,10 @@ public partial class TileDragButton : Button
 	{
 		if (held)
 		{
+            var ui = GetTree().Root.GetNode<Node>("CombatScene/GameplayUI");
+			if (ui.HasNode("TileDragVisual")) return;
 			var tile_drag_visual = TileDragVisual.Instantiate<TileDragVisual>();
 			tile_drag_visual.Tile = Data;
-            var ui = GetTree().Root.GetNode<Node>("CombatScene/GameplayUI");
 			ui.AddChild(tile_drag_visual);
 		}
 	}

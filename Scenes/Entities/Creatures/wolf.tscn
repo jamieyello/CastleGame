@@ -1,0 +1,112 @@
+[gd_scene load_steps=15 format=3 uid="uid://dxl4voltjxmn8"]
+
+[ext_resource type="Script" path="res://Scenes/Entities/Creatures/Wolf.cs" id="1_eojx1"]
+[ext_resource type="Texture2D" uid="uid://ci5qv3dqqnlmn" path="res://Sprites/wolf_run.png" id="1_mw2wc"]
+[ext_resource type="Texture2D" uid="uid://dxbjkb7pwsyap" path="res://Sprites/wolf_eat.png" id="3_x4kw0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8a7ag"]
+size = Vector2(14, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hce1m"]
+atlas = ExtResource("1_mw2wc")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eva8"]
+atlas = ExtResource("3_x4kw0")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5w7il"]
+atlas = ExtResource("3_x4kw0")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxu6l"]
+atlas = ExtResource("1_mw2wc")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg0sh"]
+atlas = ExtResource("1_mw2wc")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n163y"]
+atlas = ExtResource("1_mw2wc")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oqv10"]
+atlas = ExtResource("1_mw2wc")
+region = Rect2(0, 10, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gqdao"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hce1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eva8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5w7il")
+}],
+"loop": true,
+"name": &"eat",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mxu6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg0sh")
+}],
+"loop": true,
+"name": &"run",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n163y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oqv10")
+}],
+"loop": true,
+"name": &"run_fast",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fufin"]
+radius = 57.0789
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3sqpr"]
+radius = 14.0
+
+[node name="Wolf" type="CharacterBody2D"]
+script = ExtResource("1_eojx1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_8a7ag")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_gqdao")
+animation = &"run_fast"
+frame_progress = 0.0108602
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource("CircleShape2D_fufin")
+
+[node name="AttackRange" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_3sqpr")
+
+[connection signal="body_entered" from="Vision" to="." method="_BodyEnteredVision"]
+[connection signal="body_exited" from="Vision" to="." method="_BodyExitedVision"]

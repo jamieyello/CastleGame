@@ -45,8 +45,13 @@ public partial class BuildingGrid : Node2D
         Placeable = 2,
     }
 
-    static Color InvalidColor = Colors.Red;
-    static Color PlaceableColor = Colors.Green;
+    static readonly Color SelfModulateHoveredColor = new(1, 1, 1, 0.12549f);
+    static readonly Color SelfModulateNotHoveredColor = new(1, 1, 1, 0);
+
+    float self_modulate_lerp; // from 0f to 1f, 1 being hovered over
+
+    static readonly Color InvalidColor = Colors.Red;
+    static readonly Color PlaceableColor = Colors.Green;
 
     HoverType Hover;
     Vector2I? HoverPos;
@@ -66,19 +71,24 @@ public partial class BuildingGrid : Node2D
 
     public void HoverOver(Vector2? position, out bool can_place)
     {
-        var pos = position == null ? null : PositionToCoords(position.Value);
+        HoverPos = position == null ? null : PositionToCoords(position.Value);
 
-        if (pos == null) 
+        if (HoverPos == null) 
         {
-            HoverPos = null;
             Hover = HoverType.None;
             can_place = false;
-            return;
         }
-
-        HoverPos = pos;
-        Hover = HoverType.Placeable;
-        can_place = true;
+        else if (grid.ContainsKey(HoverPos.Value))
+        {
+            Hover = HoverType.Invalid;
+            can_place = false;
+        }
+        else
+        {
+            Hover = HoverType.Placeable;
+            can_place = true;
+        }
+        
         QueueRedraw();
     }
 
@@ -89,7 +99,7 @@ public partial class BuildingGrid : Node2D
         var node = tile.Tile.Instantiate<CharacterBody2D>();
         var i_tile = (ITileNode)node;
         grid.Add(coords, i_tile);
-        node.Position = coords * Size;
+        node.Position = coords * Size + new Vector2I(Size / 2, Size / 2);
         i_tile.GridCoords = coords;
         AddChild(node);
     }
@@ -97,12 +107,13 @@ public partial class BuildingGrid : Node2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-	}
+        QueueRedraw(); // needed?
+    }
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
-		//QueueRedraw();
+		QueueRedraw();
 	}
 
     public override void _Draw()

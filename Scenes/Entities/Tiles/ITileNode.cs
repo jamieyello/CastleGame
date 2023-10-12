@@ -9,6 +9,7 @@ namespace Castle.Scenes.Entities.Tiles
 {
     public interface ITileNode
     {
+        public int TeamId { get; set; }
         public Vector2I GridCoords { get; set; }
     }
 }

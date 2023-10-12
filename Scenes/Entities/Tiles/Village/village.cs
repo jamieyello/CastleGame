@@ -6,6 +6,7 @@ using System;
 public partial class village : CharacterBody2D, ITileNode
 {
     public Vector2I GridCoords { get; set; }
+    public int TeamId { get; set; }
 
     double MoneyPerSecond = 2f;
 
