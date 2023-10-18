@@ -13,7 +13,6 @@ script = ExtResource("1_gg5ak")
 [node name="BuildingGrid" type="Node2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.12549)
 texture_filter = 2
-position = Vector2(-157, -149)
 script = ExtResource("2_q2fkj")
 Width = 5
 Height = 10
@@ -23,7 +22,13 @@ Size = 128
 script = ExtResource("4_agt0q")
 
 [node name="Swordsman" parent="." instance=ExtResource("5_evug7")]
-position = Vector2(193, 237)
+position = Vector2(263, 340)
 
 [node name="Wolf" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(250, 268)
+position = Vector2(199, 296)
+
+[node name="Wolf2" parent="." instance=ExtResource("6_vd1qi")]
+position = Vector2(332, 342)
+
+[node name="Wolf3" parent="." instance=ExtResource("6_vd1qi")]
+position = Vector2(312, 431)

@@ -18,11 +18,29 @@ namespace Castle.Scenes.Entities.Creatures
         }
 
         public CreatureStats Stats { get; }
+        public CreatureBehavior Behavior { get; }
         public int TeamId { get; set; }
         public bool IsBeast { get; }
-        public void Scare(ICreature scarer);
-        public void Attack(ICreature attacker, int damage, out AttackResult result);
-        public void Kill(ICreature killer);
+
+        public virtual void Scare(ICreature scarer) {
+            Behavior.ChangeMode(CreatureBehaviorMode.Type.Scared, scarer);
+        }
+
+        public virtual void Attack(ICreature attacker, int damage, out AttackResult result) {
+            Stats.Hp -= damage;
+            if (Stats.Hp == 0) {
+                Kill(attacker);
+                result = AttackResult.killed;
+            }
+            else {
+                Scare(attacker);
+                result = AttackResult.damaged;
+            }
+        }
+
+        public virtual void Kill(ICreature killer) {
+            AsNode().QueueFree();
+        }
 
         static bool IsEnemy(ICreature you, ICreature other)
         {

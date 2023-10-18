@@ -11,7 +11,7 @@ namespace Castle.Scenes.Entities.Creatures
     /// <summary> Handles modular behavior of a creature. </summary>
     public class CreatureBehavior
     {
-        readonly Dictionary<CreatureBehaviorMode.Mode, CreatureBehaviorMode> modes;
+        readonly Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes;
         readonly List<ICreature> creatures_in_vision = new();
         readonly List<ICreature> creatures_in_attack_range = new();
 
@@ -25,13 +25,13 @@ namespace Castle.Scenes.Entities.Creatures
         double? time;
         Vector2? direction;
 
-        public CreatureBehavior(ICreature creature, Dictionary<CreatureBehaviorMode.Mode, CreatureBehaviorMode> modes)
+        public CreatureBehavior(ICreature creature, Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes)
         {
             this.creature = creature;
             body = (CharacterBody2D)creature;
             sprite = body.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
             this.modes = new(modes);
-            ChangeMode(CreatureBehaviorMode.Mode.Idle);
+            ChangeMode(CreatureBehaviorMode.Type.Idle);
         }
 
         public void ProcessPhysics(double delta) {
@@ -48,7 +48,7 @@ namespace Castle.Scenes.Entities.Creatures
                 foreach (var c in creatures_in_attack_range) mode.ProcessCreatureInAttackRange(c);
             }
 
-            mode.Process?.Invoke(delta);
+            if (mode.ProcessPhysics != null) velocity = mode.ProcessPhysics.Invoke(delta, velocity);
 
             body.Velocity = velocity;
             body.MoveAndSlide();
@@ -64,7 +64,13 @@ namespace Castle.Scenes.Entities.Creatures
             }
         }
 
-        public void ChangeMode(CreatureBehaviorMode.Mode mode, ICreature focus = null)
+        public bool TryChangeMode(CreatureBehaviorMode.Type mode, ICreature focus = null) {
+            if (!modes.ContainsKey(mode)) return false;
+            ChangeMode(mode, focus);
+            return true;
+        }
+
+        public void ChangeMode(CreatureBehaviorMode.Type mode, ICreature focus = null)
         {
             if (!modes.ContainsKey(mode)) throw new Exception($"No behavior defined for {mode}");
             Focus = focus;

@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 
 public class CreatureBehaviorMode
 {
-    public enum Mode
+    public enum Type
     {
         Idle,
         Wandering,
         Hunting,
         Scared,
-        Eating
+        Eating,
+        shooing
     }
 
     /// <summary> The animation to play during this state. </summary>
@@ -23,8 +24,8 @@ public class CreatureBehaviorMode
     /// <summary> If set to null, the state will not end automatically. </summary>
     public Func<float> GetTime { get; init; }
 
-    /// <summary> The next <see cref="Mode"/> to transition to if <see cref="GetTime"/> is set. <see cref="Mode.Idle"/> by default. </summary>
-    public Mode NextMode { get; init; }
+    /// <summary> The next <see cref="Type"/> to transition to if <see cref="GetTime"/> is set. <see cref="Type.Idle"/> by default. </summary>
+    public Type NextMode { get; init; }
 
     /// <summary> Direction to apply every frame. Called once at the start. </summary>
     public Func<Vector2> GetDirection { get; init; }
@@ -51,8 +52,8 @@ public class CreatureBehaviorMode
     /// <summary> Called for every creature in this creature's attack range. </summary>
     public Action<ICreature> ProcessCreatureInAttackRange { get; init; }
 
-    /// <summary> Called every frame. </summary>
-    public Action<double> Process { get; init; }
+    /// <summary> Called every frame. Passes double delta, and Vector2 velocity. Return altered velocity. </summary>
+    public Func<double, Vector2, Vector2> ProcessPhysics { get; init; }
 
     public static readonly Func<ICreature, double, bool?> DefaultGetFlip =
         (ICreature creature, double delta) =>

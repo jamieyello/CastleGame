@@ -9,26 +9,24 @@ public partial class Wolf : CharacterBody2D, ICreature
 
     [Export]
     public CreatureStats Stats { get; private set; } = new();
-
-    CreatureBehavior State { get; set; }
-
+    public CreatureBehavior Behavior { get; set; }
     public bool IsBeast => true;
 
     public override void _Ready()
     {
-        State = new CreatureBehavior(this, new() {
+        Behavior = new CreatureBehavior(this, new() {
             { 
-                CreatureBehaviorMode.Mode.Idle, 
+                CreatureBehaviorMode.Type.Idle, 
                 new() { 
                     Animation = "default", 
                     GetTime = () =>
                         1f + Random.Shared.NextSingle() * 3f,
-                    NextMode = CreatureBehaviorMode.Mode.Wandering,
-                    Halt = false,
+                    NextMode = CreatureBehaviorMode.Type.Wandering,
+                    Halt = true,
                 }
             },
             {
-                CreatureBehaviorMode.Mode.Wandering, 
+                CreatureBehaviorMode.Type.Wandering, 
                 new() {
                     Animation = "run",
                     GetDirection = () =>
@@ -39,11 +37,11 @@ public partial class Wolf : CharacterBody2D, ICreature
                 }
             },
             {
-                CreatureBehaviorMode.Mode.Scared, 
+                CreatureBehaviorMode.Type.Scared, 
                 new() {
                     Animation = "run_fast",
                     GetDirection = () => 
-                        Utility.Towards(State.Focus.AsNode().GlobalPosition, GlobalPosition) * 200f,
+                        Utility.Towards(Behavior.Focus.AsNode().GlobalPosition, GlobalPosition) * 200f,
                     GetTime = () =>
                         1f + Random.Shared.NextSingle() * 2f,
                     Distracted = true,
@@ -53,35 +51,11 @@ public partial class Wolf : CharacterBody2D, ICreature
     }
 
     public override void _PhysicsProcess(double delta) {
-        State.ProcessPhysics(delta);
+        Behavior.ProcessPhysics(delta);
 	}
 
-    public void Scare(ICreature scarer) {
-        State.ChangeMode(CreatureBehaviorMode.Mode.Scared, scarer);
-    }
-
-    public void Attack(ICreature attacker, int damage, out ICreature.AttackResult result)
-    {
-        Stats.Hp -= damage;
-        if (Stats.Hp == 0)
-        {
-            Kill(attacker);
-            result = ICreature.AttackResult.killed;
-        }
-        else
-        {
-            Scare(attacker);
-            result = ICreature.AttackResult.damaged;
-        }
-    }
-
-    public void Kill(ICreature killer)
-    {
-        QueueFree();
-    }
-
-    void _BodyEnteredVision(Node2D node) => State.BodyEnteredVision(node);
-    void _BodyExitedVision(Node2D node) => State.BodyExitedVision(node);
-    void _BodyEnteredAttackRange(Node2D node) => State.BodyEnteredAttackRange(node);
-    void _BodyExitedAttackRange(Node2D node) => State.BodyExitedAttackRange(node);
+    void _BodyEnteredVision(Node2D node) => Behavior.BodyEnteredVision(node);
+    void _BodyExitedVision(Node2D node) => Behavior.BodyExitedVision(node);
+    void _BodyEnteredAttackRange(Node2D node) => Behavior.BodyEnteredAttackRange(node);
+    void _BodyExitedAttackRange(Node2D node) => Behavior.BodyExitedAttackRange(node);
 }
