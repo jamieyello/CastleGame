@@ -41,7 +41,7 @@ animations = [{
 size = Vector2(5, 7)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g7bsr"]
-radius = 26.0192
+radius = 102.24
 
 [node name="Swordsman" type="CharacterBody2D"]
 scale = Vector2(2, 2)

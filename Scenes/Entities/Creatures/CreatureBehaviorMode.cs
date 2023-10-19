@@ -15,7 +15,8 @@ public class CreatureBehaviorMode
         Hunting,
         Scared,
         Eating,
-        shooing
+        Scaring,
+        MeleeAttack
     }
 
     /// <summary> The animation to play during this state. </summary>
@@ -46,14 +47,20 @@ public class CreatureBehaviorMode
     /// <summary> Multiply the existing velocity by this value per update. </summary>
     public float Friction = 0f;
 
-    /// <summary> Called for each creature in this creature's vision. </summary>
-    public Action<ICreature> ProcessCreatureInVision { get; init; }
+    /// <summary> Called for each creature in this creature's vision. Return true to break the foreach. </summary>
+    public Func<ICreature, bool> ProcessCreatureInVision { get; init; }
 
-    /// <summary> Called for every creature in this creature's attack range. </summary>
-    public Action<ICreature> ProcessCreatureInAttackRange { get; init; }
+    /// <summary> Called for every creature in this creature's attack range. Return true to break the foreach. </summary>
+    public Func<ICreature, bool> ProcessCreatureInAttackRange { get; init; }
 
     /// <summary> Called every frame. Passes double delta, and Vector2 velocity. Return altered velocity. </summary>
     public Func<double, Vector2, Vector2> ProcessPhysics { get; init; }
+
+    /// <summary> Called when this mode is selected. Return a different mode to change to that instead. </summary>
+    public Func<(Type NewMode, ICreature NewTarget)?> TriggerStart { get; init; }
+
+    /// <summary> If true, this behavior will disable if there is no target, or the target is dead. </summary>
+    public bool RequireFocus { get; init; }
 
     public static readonly Func<ICreature, double, bool?> DefaultGetFlip =
         (ICreature creature, double delta) =>

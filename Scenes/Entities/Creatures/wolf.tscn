@@ -80,10 +80,10 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fufin"]
-radius = 57.0789
+radius = 121.202
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3sqpr"]
-radius = 14.0
+radius = 12.0416
 
 [node name="Wolf" type="CharacterBody2D"]
 script = ExtResource("1_eojx1")
@@ -95,8 +95,7 @@ shape = SubResource("RectangleShape2D_8a7ag")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_gqdao")
-animation = &"run_fast"
-frame_progress = 0.0108602
+frame_progress = 0.660038
 
 [node name="Vision" type="Area2D" parent="."]
 
@@ -106,7 +105,10 @@ shape = SubResource("CircleShape2D_fufin")
 [node name="AttackRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_3sqpr")
 
 [connection signal="body_entered" from="Vision" to="." method="_BodyEnteredVision"]
 [connection signal="body_exited" from="Vision" to="." method="_BodyExitedVision"]
+[connection signal="body_entered" from="AttackRange" to="." method="_BodyEnteredAttackRange"]
+[connection signal="body_exited" from="AttackRange" to="." method="_BodyExitedAttackRange"]

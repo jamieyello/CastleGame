@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://qk63t6qoj2qh"]
+[gd_scene load_steps=8 format=3 uid="uid://qk63t6qoj2qh"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_gg5ak"]
 [ext_resource type="Script" path="res://Scenes/Levels/BuildingGrid.cs" id="2_q2fkj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scenes/UI/gameplay_ui.cs" id="4_agt0q"]
 [ext_resource type="PackedScene" uid="uid://eropscspad3c" path="res://Scenes/Entities/Creatures/swordsman.tscn" id="5_evug7"]
 [ext_resource type="PackedScene" uid="uid://dxl4voltjxmn8" path="res://Scenes/Entities/Creatures/wolf.tscn" id="6_vd1qi"]
+[ext_resource type="PackedScene" uid="uid://d0lisl2ip3qui" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.tscn" id="7_m7g1p"]
 
 [node name="CombatScene" type="Node2D"]
 script = ExtResource("1_gg5ak")
@@ -21,14 +22,38 @@ Size = 128
 [node name="GameplayUI" parent="." instance=ExtResource("3_p7t6h")]
 script = ExtResource("4_agt0q")
 
-[node name="Swordsman" parent="." instance=ExtResource("5_evug7")]
-position = Vector2(263, 340)
-
 [node name="Wolf" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(199, 296)
+position = Vector2(327, 376)
 
-[node name="Wolf2" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(332, 342)
+[node name="LittleGuy" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(325, 300)
 
-[node name="Wolf3" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(312, 431)
+[node name="LittleGuy2" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(274, 316)
+
+[node name="LittleGuy3" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(241, 228)
+
+[node name="LittleGuy4" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(241, 365)
+
+[node name="LittleGuy5" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(269, 412)
+
+[node name="LittleGuy6" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(310, 435)
+
+[node name="LittleGuy7" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(188, 406)
+
+[node name="LittleGuy8" parent="." instance=ExtResource("7_m7g1p")]
+position = Vector2(231, 452)
+
+[node name="Swordsman" parent="." instance=ExtResource("5_evug7")]
+position = Vector2(270, 275)
+
+[node name="Wolf4" parent="." instance=ExtResource("6_vd1qi")]
+position = Vector2(163, 480)
+
+[node name="Wolf6" parent="." instance=ExtResource("6_vd1qi")]
+position = Vector2(102, 234)

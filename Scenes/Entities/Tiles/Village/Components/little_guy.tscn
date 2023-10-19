@@ -18,6 +18,7 @@ animations = [{
 }]
 
 [node name="LittleGuy" type="CharacterBody2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_f46dv")
 MoveDistance = 3.0
 SpeedCap = Vector2(12, 12)

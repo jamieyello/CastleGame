@@ -34,18 +34,35 @@ namespace Castle.Scenes.Entities.Creatures
             ChangeMode(CreatureBehaviorMode.Type.Idle);
         }
 
+        bool processing;
+        CreatureBehaviorMode.Type? change_mode;
+
         public void ProcessPhysics(double delta) {
+            if (this.mode.RequireFocus && (
+                    Focus == null ||
+                    !GodotObject.IsInstanceValid(Focus.AsNode()) ||
+                    Focus.AsNode().IsQueuedForDeletion()
+                )) ChangeMode(this.mode.NextMode);
+            
+
             var velocity = body.Velocity;
+
+            // Don't act on changes to the mode mid-callbacks
+            var mode = this.mode;
 
             velocity *= mode.Friction;
             if (direction != null) velocity += direction.Value;
             if (mode.GetAdditionalDirection != null) velocity += mode.GetAdditionalDirection(delta);
             if (mode.Halt) velocity = Vector2.Zero;
             if (mode.ProcessCreatureInVision != null) {
-                foreach (var c in creatures_in_vision) mode.ProcessCreatureInVision(c);
+                foreach (var c in creatures_in_vision) {
+                    if (mode.ProcessCreatureInVision(c)) break;
+                }
             }
             if (mode.ProcessCreatureInAttackRange != null) {
-                foreach (var c in creatures_in_attack_range) mode.ProcessCreatureInAttackRange(c);
+                foreach (var c in creatures_in_attack_range) {
+                    if (mode.ProcessCreatureInAttackRange(c)) break;
+                }
             }
 
             if (mode.ProcessPhysics != null) velocity = mode.ProcessPhysics.Invoke(delta, velocity);
@@ -62,6 +79,12 @@ namespace Castle.Scenes.Entities.Creatures
                 time -= delta;
                 if (time <= 0) ChangeMode(mode.NextMode);
             }
+
+            processing = false;
+            if (change_mode.HasValue) {
+                ChangeMode(change_mode.Value);
+                change_mode = null;
+            }
         }
 
         public bool TryChangeMode(CreatureBehaviorMode.Type mode, ICreature focus = null) {
@@ -72,12 +95,20 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void ChangeMode(CreatureBehaviorMode.Type mode, ICreature focus = null)
         {
+            // Don't act on changes to the mode mid-callbacks
+            if (processing) {
+                change_mode = mode;
+                return;
+            }
             if (!modes.ContainsKey(mode)) throw new Exception($"No behavior defined for {mode}");
             Focus = focus;
             this.mode = modes[mode];
             time = this.mode.GetTime != null ? this.mode.GetTime() : null;
             direction = this.mode.GetDirection != null ? this.mode.GetDirection() : null;
             sprite.Play(this.mode.Animation);
+
+            var change = this.mode.TriggerStart?.Invoke();
+            if (change != null) ChangeMode(change.Value.NewMode, change.Value.NewTarget);
         }
 
         public void BodyEnteredVision(Node2D node) {

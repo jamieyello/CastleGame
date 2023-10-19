@@ -12,10 +12,8 @@ public partial class Wolf : CharacterBody2D, ICreature
     public CreatureBehavior Behavior { get; set; }
     public bool IsBeast => true;
 
-    public override void _Ready()
-    {
-        Behavior = new CreatureBehavior(this, new() {
-            { 
+    public override void _Ready() {
+        Behavior = new CreatureBehavior(this, new() { { 
                 CreatureBehaviorMode.Type.Idle, 
                 new() { 
                     Animation = "default", 
@@ -23,9 +21,9 @@ public partial class Wolf : CharacterBody2D, ICreature
                         1f + Random.Shared.NextSingle() * 3f,
                     NextMode = CreatureBehaviorMode.Type.Wandering,
                     Halt = true,
+                    ProcessCreatureInVision = ProcessCreatureInVision
                 }
-            },
-            {
+            }, {
                 CreatureBehaviorMode.Type.Wandering, 
                 new() {
                     Animation = "run",
@@ -35,8 +33,7 @@ public partial class Wolf : CharacterBody2D, ICreature
                     GetTime = () =>
                         0.1f + Random.Shared.NextSingle() * 2f,
                 }
-            },
-            {
+            }, {
                 CreatureBehaviorMode.Type.Scared, 
                 new() {
                     Animation = "run_fast",
@@ -46,8 +43,56 @@ public partial class Wolf : CharacterBody2D, ICreature
                         1f + Random.Shared.NextSingle() * 2f,
                     Distracted = true,
                 }
+            }, {
+                CreatureBehaviorMode.Type.Hunting, 
+                new() {
+                    Animation = "run_fast",
+                    GetAdditionalDirection = (delta) => Utility.Towards(GlobalPosition, Behavior.Focus.AsNode().GlobalPosition) * 150f,
+                    Distracted = true,
+                    ProcessCreatureInAttackRange = HuntingProcessCreatureInAttackRange,
+                    RequireFocus = true,
+                }
+            }, {
+                CreatureBehaviorMode.Type.MeleeAttack,
+                new() {
+                    Animation = "default",
+                    GetTime = () => 1f,
+                    Distracted = true,
+                    TriggerStart = ProcessAttack,
+                    NextMode = CreatureBehaviorMode.Type.Hunting,
+                    RequireFocus = true,
+                }
+            }, {
+                CreatureBehaviorMode.Type.Eating,
+                new() {
+                    Animation = "eat",
+                    GetTime = () => 1f,
+                    Distracted = true,
+                }
             }
         });
+    }
+
+    (CreatureBehaviorMode.Type NewMode, ICreature NewTarget)? ProcessAttack()
+    {
+        Behavior.Focus.Attack(this, Stats.Attack, out var result);
+        if (result == ICreature.AttackResult.killed) return (CreatureBehaviorMode.Type.Eating, null);
+        return null;
+    }
+
+    bool ProcessCreatureInVision(ICreature creature) {
+        if (ICreature.IsEnemy(this, creature)) {
+            Behavior.ChangeMode(CreatureBehaviorMode.Type.Hunting, creature);
+            return true;
+        }
+        return false;
+    }
+
+    // Note; not necessarily the target.
+    bool HuntingProcessCreatureInAttackRange(ICreature creature) {
+        if (creature != Behavior.Focus) return false;
+        Behavior.ChangeMode(CreatureBehaviorMode.Type.MeleeAttack, creature);
+        return true;
     }
 
     public override void _PhysicsProcess(double delta) {

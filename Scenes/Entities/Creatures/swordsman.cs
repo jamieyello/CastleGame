@@ -22,7 +22,7 @@ public partial class swordsman : CharacterBody2D, ICreature
                     GetFlip = null,
                 }
             }, {
-                CreatureBehaviorMode.Type.shooing, new() { 
+                CreatureBehaviorMode.Type.Scaring, new() { 
                     Animation = "swing_sword",
                     GetAdditionalDirection = GetShakeTowards,
                     GetTime = () => 0.2f + Random.Shared.NextSingle() * 1f,
@@ -31,13 +31,15 @@ public partial class swordsman : CharacterBody2D, ICreature
         });
     }
 
-    void ProcessCreatureInVision(ICreature creature) {
+    bool ProcessCreatureInVision(ICreature creature) {
         if (ICreature.IsEnemy(this, creature)) {
             if (creature.IsBeast) {
-                Behavior.ChangeMode(CreatureBehaviorMode.Type.shooing, creature);
+                Behavior.ChangeMode(CreatureBehaviorMode.Type.Scaring, creature);
                 creature.Scare(this);
+                return true;
             }
         }
+        return false;
     }
 
     Vector2 GetShakeTowards(double delta) {
