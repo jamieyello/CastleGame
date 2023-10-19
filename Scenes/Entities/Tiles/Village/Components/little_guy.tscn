@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0lisl2ip3qui"]
+[gd_scene load_steps=6 format=3 uid="uid://d0lisl2ip3qui"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.cs" id="1_f46dv"]
 [ext_resource type="Texture2D" uid="uid://di033j54wb5mq" path="res://Sprites/little_guy.png" id="2_6n8nh"]
@@ -17,6 +17,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_g62f7"]
+radius = 51.5218
+
 [node name="LittleGuy" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_f46dv")
@@ -28,3 +31,11 @@ shape = SubResource("RectangleShape2D_y4f8m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_3cs2x")
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+shape = SubResource("CircleShape2D_g62f7")
+
+[connection signal="body_entered" from="Vision" to="." method="_BodyEnteredVision"]
+[connection signal="body_exited" from="Vision" to="." method="_BodyExitedVision"]

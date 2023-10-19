@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://qk63t6qoj2qh"]
+[gd_scene load_steps=7 format=3 uid="uid://qk63t6qoj2qh"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_gg5ak"]
 [ext_resource type="Script" path="res://Scenes/Levels/BuildingGrid.cs" id="2_q2fkj"]
 [ext_resource type="PackedScene" uid="uid://7bx1n3lhkquq" path="res://Scenes/UI/gameplay_ui.tscn" id="3_p7t6h"]
 [ext_resource type="Script" path="res://Scenes/UI/gameplay_ui.cs" id="4_agt0q"]
-[ext_resource type="PackedScene" uid="uid://eropscspad3c" path="res://Scenes/Entities/Creatures/swordsman.tscn" id="5_evug7"]
-[ext_resource type="PackedScene" uid="uid://dxl4voltjxmn8" path="res://Scenes/Entities/Creatures/wolf.tscn" id="6_vd1qi"]
-[ext_resource type="PackedScene" uid="uid://d0lisl2ip3qui" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.tscn" id="7_m7g1p"]
+[ext_resource type="Texture2D" uid="uid://b7sewocq4xyii" path="res://Sprites/castle.png" id="5_8xtti"]
+[ext_resource type="Script" path="res://Scenes/Utilities/Camera.cs" id="5_fq60h"]
 
 [node name="CombatScene" type="Node2D"]
 script = ExtResource("1_gg5ak")
@@ -14,46 +13,25 @@ script = ExtResource("1_gg5ak")
 [node name="BuildingGrid" type="Node2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.12549)
 texture_filter = 2
+position = Vector2(-146, -196)
 script = ExtResource("2_q2fkj")
 Width = 5
 Height = 10
 Size = 128
 
-[node name="GameplayUI" parent="." instance=ExtResource("3_p7t6h")]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(220, 414)
+limit_left = -500
+limit_top = -500
+limit_right = 800
+limit_bottom = 1300
+editor_draw_limits = true
+script = ExtResource("5_fq60h")
+
+[node name="Castle" type="Sprite2D" parent="Camera2D"]
+texture = ExtResource("5_8xtti")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameplayUI" parent="CanvasLayer" instance=ExtResource("3_p7t6h")]
 script = ExtResource("4_agt0q")
-
-[node name="Wolf" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(327, 376)
-
-[node name="LittleGuy" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(325, 300)
-
-[node name="LittleGuy2" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(274, 316)
-
-[node name="LittleGuy3" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(241, 228)
-
-[node name="LittleGuy4" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(241, 365)
-
-[node name="LittleGuy5" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(269, 412)
-
-[node name="LittleGuy6" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(310, 435)
-
-[node name="LittleGuy7" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(188, 406)
-
-[node name="LittleGuy8" parent="." instance=ExtResource("7_m7g1p")]
-position = Vector2(231, 452)
-
-[node name="Swordsman" parent="." instance=ExtResource("5_evug7")]
-position = Vector2(270, 275)
-
-[node name="Wolf4" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(163, 480)
-
-[node name="Wolf6" parent="." instance=ExtResource("6_vd1qi")]
-position = Vector2(102, 234)

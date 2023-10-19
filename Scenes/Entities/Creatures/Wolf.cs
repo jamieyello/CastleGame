@@ -88,7 +88,6 @@ public partial class Wolf : CharacterBody2D, ICreature
         return false;
     }
 
-    // Note; not necessarily the target.
     bool HuntingProcessCreatureInAttackRange(ICreature creature) {
         if (creature != Behavior.Focus) return false;
         Behavior.ChangeMode(CreatureBehaviorMode.Type.MeleeAttack, creature);

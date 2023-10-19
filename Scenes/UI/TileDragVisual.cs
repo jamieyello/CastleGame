@@ -20,18 +20,21 @@ public partial class TileDragVisual : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		Position = GetViewport().GetMousePosition();
+        var vp = GetViewport();
+		Position = vp.GetMousePosition();
+        var camera_p = vp.GetCamera2D().Position;
 
 		var held = Input.IsMouseButtonPressed(MouseButton.Left);
 
+        var grid_p = Position + camera_p + ui.BuildingGrid.Position;
         if (held)
         {
-            ui.BuildingGrid.HoverOver(Position, out can_place);
+            ui.BuildingGrid.HoverOver(grid_p, out can_place);
         }
         else
         {
             if (can_place) {
-                ui.BuildingGrid.Add(Tile, Position);
+                ui.BuildingGrid.Add(Tile, grid_p);
             }
 
             ui.BuildingGrid.HoverOver(null, out _);

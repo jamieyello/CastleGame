@@ -59,7 +59,7 @@ public class CreatureBehaviorMode
     /// <summary> Called when this mode is selected. Return a different mode to change to that instead. </summary>
     public Func<(Type NewMode, ICreature NewTarget)?> TriggerStart { get; init; }
 
-    /// <summary> If true, this behavior will disable if there is no target, or the target is dead. </summary>
+    /// <summary> If true, this behavior will disable if there is no target, or if the target is dead. </summary>
     public bool RequireFocus { get; init; }
 
     public static readonly Func<ICreature, double, bool?> DefaultGetFlip =
