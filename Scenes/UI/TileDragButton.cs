@@ -1,3 +1,4 @@
+using Castle.Static;
 using Godot;
 using System;
 
@@ -16,18 +17,23 @@ public partial class TileDragButton : Button
 		var image = GetNode<TextureRect>("PreviewSprite");
 		var name_label = GetNode<Label>("NameLabel");
 		var description_label = GetNode<Label>("DescriptionLabel");
+		var cost_label = GetNode<Label>("CostLabel");
 
 		if (Data != null)
 		{
             image.Texture = Data.Preview;
             name_label.Text = Data.TileName;
             description_label.Text = Data.Description;
+			cost_label.Text = Data.Cost.ToString();
         }
-	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+        Disabled = GlobalData.Player.Gold < Data.Cost;
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
 	{
+		Disabled = GlobalData.Player.Gold < Data.Cost;
 	}
 
 	void _OnButtonDown()

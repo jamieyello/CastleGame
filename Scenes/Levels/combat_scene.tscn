@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://qk63t6qoj2qh"]
+[gd_scene load_steps=6 format=3 uid="uid://qk63t6qoj2qh"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_gg5ak"]
 [ext_resource type="Script" path="res://Scenes/Levels/BuildingGrid.cs" id="2_q2fkj"]
 [ext_resource type="PackedScene" uid="uid://7bx1n3lhkquq" path="res://Scenes/UI/gameplay_ui.tscn" id="3_p7t6h"]
 [ext_resource type="Script" path="res://Scenes/UI/gameplay_ui.cs" id="4_agt0q"]
-[ext_resource type="Texture2D" uid="uid://b7sewocq4xyii" path="res://Sprites/castle.png" id="5_8xtti"]
 [ext_resource type="Script" path="res://Scenes/Utilities/Camera.cs" id="5_fq60h"]
 
 [node name="CombatScene" type="Node2D"]
@@ -13,7 +12,6 @@ script = ExtResource("1_gg5ak")
 [node name="BuildingGrid" type="Node2D" parent="."]
 self_modulate = Color(1, 1, 1, 0.12549)
 texture_filter = 2
-position = Vector2(-146, -196)
 script = ExtResource("2_q2fkj")
 Width = 5
 Height = 10
@@ -27,9 +25,6 @@ limit_right = 800
 limit_bottom = 1300
 editor_draw_limits = true
 script = ExtResource("5_fq60h")
-
-[node name="Castle" type="Sprite2D" parent="Camera2D"]
-texture = ExtResource("5_8xtti")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

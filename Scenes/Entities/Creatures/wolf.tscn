@@ -95,18 +95,20 @@ shape = SubResource("RectangleShape2D_8a7ag")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_gqdao")
-frame_progress = 0.258567
+frame_progress = 0.624737
 
 [node name="Vision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource("CircleShape2D_fufin")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="AttackRange" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
 position = Vector2(1, 2)
 shape = SubResource("CircleShape2D_3sqpr")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [connection signal="body_entered" from="Vision" to="." method="_BodyEnteredVision"]
 [connection signal="body_exited" from="Vision" to="." method="_BodyExitedVision"]

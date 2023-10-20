@@ -59,6 +59,7 @@ shape = SubResource("RectangleShape2D_2oh31")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
 shape = SubResource("CircleShape2D_g7bsr")
+debug_color = Color(0, 0.6, 0.701961, 0)
 
 [connection signal="body_entered" from="Vision" to="." method="_BodyEnteredVision"]
 [connection signal="body_exited" from="Vision" to="." method="_BodyExitedVision"]

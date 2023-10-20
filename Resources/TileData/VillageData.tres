@@ -8,6 +8,7 @@
 script = ExtResource("1_21yry")
 TileName = "Village"
 Description = "A place for your citizens to live. Produces resources over time."
-BaseHp = 0
+BaseHp = 10
+Cost = 30
 Preview = ExtResource("1_t1jk4")
 Tile = ExtResource("2_q7jnd")

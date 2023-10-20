@@ -1,3 +1,4 @@
+using Castle.Static;
 using Godot;
 using System;
 
@@ -21,20 +22,28 @@ public partial class TileDragVisual : Control
 	public override void _Process(double delta)
 	{
         var vp = GetViewport();
-		Position = vp.GetMousePosition();
-        var camera_p = vp.GetCamera2D().Position;
+        var camera = vp.GetCamera2D();
+        var mouse_p = vp.GetMousePosition();
+        var camera_p = camera.Position;
+        var camera_z = camera.Zoom;
 
-		var held = Input.IsMouseButtonPressed(MouseButton.Left);
+        Position = mouse_p;
 
-        var grid_p = Position + camera_p + ui.BuildingGrid.Position;
+        var held = Input.IsMouseButtonPressed(MouseButton.Left);
+
+        var grid_p = camera_p + ui.BuildingGrid.Position + (mouse_p - vp.GetVisibleRect().Size / 2) / camera_z;
+        
+
         if (held)
         {
             ui.BuildingGrid.HoverOver(grid_p, out can_place);
+            if (GlobalData.Player.Gold < Tile.Cost) can_place = false;
         }
         else
         {
             if (can_place) {
                 ui.BuildingGrid.Add(Tile, grid_p);
+                GlobalData.Player.Gold -= Tile.Cost;
             }
 
             ui.BuildingGrid.HoverOver(null, out _);

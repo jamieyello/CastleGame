@@ -32,6 +32,8 @@ disabled = true
 
 [node name="TownHall" type="StaticBody2D" parent="BuildingCollision"]
 position = Vector2(-24, 5)
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingCollision/TownHall"]
 position = Vector2(0, 1)
@@ -39,6 +41,8 @@ shape = SubResource("RectangleShape2D_sg3j1")
 
 [node name="Hospital" type="StaticBody2D" parent="BuildingCollision"]
 position = Vector2(6, 16)
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingCollision/Hospital"]
 position = Vector2(0, 2)
@@ -46,17 +50,23 @@ shape = SubResource("RectangleShape2D_l30q3")
 
 [node name="Library" type="StaticBody2D" parent="BuildingCollision"]
 position = Vector2(-36, -29)
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BuildingCollision/Library"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_xeb41")
 
 [node name="Walls" type="StaticBody2D" parent="BuildingCollision"]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Walls"]
 polygon = PackedVector2Array(-48, -56, -56, -56, -56, 56, 56, 56, 56, -56, -39, -56, -39, -48, 48, -48, 48, 48, 8, 48, 8, 44, -8, 44, -8, 48, -48, 48, -48, -48, -39, -48, -39, -56, -56, -56)
 
 [node name="Hut" type="StaticBody2D" parent="BuildingCollision"]
+collision_layer = 4
+collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Hut"]
 polygon = PackedVector2Array(-10, -16, -16, -16, -20, -20, -20, -32, -12, -40, -8, -40, 0, -32, 0, -20, -4, -16)

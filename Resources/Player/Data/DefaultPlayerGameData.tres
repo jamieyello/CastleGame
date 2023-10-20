@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://fujdr605jxjx"]
+[gd_resource type="Resource" script_class="PlayerGameData" load_steps=2 format=3 uid="uid://fujdr605jxjx"]
 
 [ext_resource type="Script" path="res://Resources/Player/PlayerGameData.cs" id="1_5vldn"]
 
@@ -6,4 +6,4 @@
 script = ExtResource("1_5vldn")
 Id = 0
 Name = "Player"
-Gold = 0.0
+Gold = 50.0
