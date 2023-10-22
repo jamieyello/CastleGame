@@ -7,7 +7,7 @@ public partial class combat_scene : Node2D
 	public override void _Ready()
 	{
 		var ui = GetNode<gameplay_ui>("CanvasLayer/GameplayUI");
-		var bg = GetNode<BuildingGrid>("BuildingGrid");
+		var bg = GetNode<BuildingGrid>("World/BuildingGrid");
 		ui.BuildingGrid = bg;
 	}
 

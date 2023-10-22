@@ -20,6 +20,7 @@ size = Vector2(16, 24)
 script = ExtResource("1_ghxk3")
 
 [node name="VillageSprite" type="Sprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(4, 4)
 texture = ExtResource("1_y70ab")
 
@@ -70,11 +71,6 @@ collision_mask = 4
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Hut"]
 polygon = PackedVector2Array(-10, -16, -16, -16, -20, -20, -20, -32, -12, -40, -8, -40, 0, -32, 0, -20, -4, -16)
-
-[node name="Spawners" type="Node2D" parent="."]
-
-[node name="Spawner" type="Node2D" parent="Spawners"]
-position = Vector2(93, -68)
 
 [node name="LittleGuy" parent="." instance=ExtResource("2_5o0vh")]
 position = Vector2(-33, 27)

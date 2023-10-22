@@ -7,17 +7,19 @@ public partial class TileDragButton : Button
 	[Export]
 	public TileStats Data;
 
+	bool entered;
+	bool help_prev;
 	bool held;
 
 	static PackedScene TileDragVisual = GD.Load<PackedScene>("uid://dun71rbat3n8r");
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
 	{
-		var image = GetNode<TextureRect>("PreviewSprite");
-		var name_label = GetNode<Label>("NameLabel");
-		var description_label = GetNode<Label>("DescriptionLabel");
-		var cost_label = GetNode<Label>("CostLabel");
+		var image = GetNode<TextureRect>("%PreviewSprite");
+		var name_label = GetNode<Label>("%NameLabel");
+		var description_label = GetNode<Label>("%DescriptionLabel");
+		var cost_label = GetNode<Label>("%CostLabel");
 
 		if (Data != null)
 		{
@@ -34,22 +36,35 @@ public partial class TileDragButton : Button
     public override void _Process(double delta)
 	{
 		Disabled = GlobalData.Player.Gold < Data.Cost;
-	}
+        var held = Input.IsMouseButtonPressed(MouseButton.Left);
+		if (entered && held && !help_prev)
+        {
+            var c = (Camera)GetViewport().GetCamera2D();
+            c.CaptureScroll();
+        }
+        help_prev = held;
+    }
 
-	void _OnButtonDown()
+    void _OnButtonDown()
 	{
 		held = true;
-	}
+    }
 
 	void _OnButtonUp()
 	{
 		held = false;
 	}
 
+	void MouseEntered()
+	{
+		entered = true;
+	}
+
 	void _OnMouseExited()
 	{
+		entered = false;
 		if (held)
-		{
+        {
             var ui = GetTree().Root.GetNode<Node>("CombatScene/CanvasLayer/GameplayUI");
 			if (ui.HasNode("TileDragVisual")) return;
 			var tile_drag_visual = TileDragVisual.Instantiate<TileDragVisual>();

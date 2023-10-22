@@ -32,6 +32,7 @@ SpeedCap = Vector2(12, 12)
 shape = SubResource("RectangleShape2D_y4f8m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_3cs2x")
 
 [node name="Vision" type="Area2D" parent="."]

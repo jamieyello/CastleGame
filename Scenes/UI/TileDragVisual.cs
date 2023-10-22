@@ -31,9 +31,8 @@ public partial class TileDragVisual : Control
 
         var held = Input.IsMouseButtonPressed(MouseButton.Left);
 
-        var grid_p = camera_p + ui.BuildingGrid.Position + (mouse_p - vp.GetVisibleRect().Size / 2) / camera_z;
+        var grid_p = camera_p + -ui.BuildingGrid.GetParent<Node2D>().Position + (mouse_p - vp.GetVisibleRect().Size / 2) / camera_z;
         
-
         if (held)
         {
             ui.BuildingGrid.HoverOver(grid_p, out can_place);
