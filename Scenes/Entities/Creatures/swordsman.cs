@@ -11,8 +11,10 @@ public partial class swordsman : CharacterBody2D, ICreature
     [Export]
     public CreatureStats Stats { get; private set; } = new();
     public CreatureBehavior Behavior { get; private set; }
+    public bool Highlight { get; set; }
 
     public override void _Ready() {
+        ((ICreature)this).CreatureReady();
         Behavior = new(this, new() { {
                 CreatureBehaviorMode.Type.Idle,
                 new() {
@@ -48,11 +50,12 @@ public partial class swordsman : CharacterBody2D, ICreature
         return velocity;
     }
 
-    public override void _PhysicsProcess(double delta) {
-        Behavior.ProcessPhysics(delta);
-	}
+    public override void _Draw() {
+        ((ICreature)this).CreatureDraw();
+    }
 
-    public override void _Process(double delta) {
+    public override void _PhysicsProcess(double delta) {
+        ((ICreature)this).CreatureProcessPhysics(delta);
         Behavior.ProcessPhysics(delta);
     }
 

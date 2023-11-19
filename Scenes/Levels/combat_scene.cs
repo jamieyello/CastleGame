@@ -3,6 +3,8 @@ using System;
 
 public partial class combat_scene : Node2D
 {
+	static PackedScene select_rect = GD.Load<PackedScene>("uid://bljppdumdlsyb");
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -14,6 +16,12 @@ public partial class combat_scene : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-
+        var held = Input.IsMouseButtonPressed(MouseButton.Right);
+        if (!HasNode("select_rect") && held)
+		{
+			var n = select_rect.Instantiate();
+			n.Name = "select_rect";
+            AddChild(n);
+        }
     }
 }

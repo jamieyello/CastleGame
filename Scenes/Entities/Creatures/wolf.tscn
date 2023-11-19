@@ -1,11 +1,20 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxl4voltjxmn8"]
+[gd_scene load_steps=17 format=3 uid="uid://dxl4voltjxmn8"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Creatures/Wolf.cs" id="1_eojx1"]
 [ext_resource type="Texture2D" uid="uid://ci5qv3dqqnlmn" path="res://Sprites/wolf_run.png" id="1_mw2wc"]
+[ext_resource type="Shader" path="res://Shaders/highlight.gdshader" id="2_s22iv"]
 [ext_resource type="Texture2D" uid="uid://dxbjkb7pwsyap" path="res://Sprites/wolf_eat.png" id="3_x4kw0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8a7ag"]
 size = Vector2(14, 12)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3tim"]
+shader = ExtResource("2_s22iv")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hce1m"]
 atlas = ExtResource("1_mw2wc")
@@ -93,6 +102,7 @@ position = Vector2(1, 2)
 shape = SubResource("RectangleShape2D_8a7ag")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_k3tim")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_gqdao")
 frame_progress = 0.624737

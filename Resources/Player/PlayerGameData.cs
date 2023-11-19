@@ -10,4 +10,8 @@ public partial class PlayerGameData : Resource
     public string Name;
     [Export]
     public double Gold;
+    [Export]
+    public Color Color;
+
+    public PlayerGameRuntimeData Runtime = new();
 }

@@ -11,8 +11,10 @@ public partial class Wolf : CharacterBody2D, ICreature
     public CreatureStats Stats { get; private set; } = new();
     public CreatureBehavior Behavior { get; set; }
     public bool IsBeast => true;
+    public bool Highlight { get; set; }
 
     public override void _Ready() {
+        ((ICreature)this).CreatureReady();
         Behavior = new CreatureBehavior(this, new() { { 
                 CreatureBehaviorMode.Type.Idle, 
                 new() { 
@@ -73,6 +75,15 @@ public partial class Wolf : CharacterBody2D, ICreature
         });
     }
 
+    public override void _Draw() {
+        ((ICreature)this).CreatureDraw();
+    }
+
+    public override void _PhysicsProcess(double delta) {
+        ((ICreature)this).CreatureProcessPhysics(delta);
+        Behavior.ProcessPhysics(delta);
+    }
+
     (CreatureBehaviorMode.Type NewMode, ICreature NewTarget)? ProcessAttack()
     {
         Behavior.Focus.Attack(this, Stats.Attack, out var result);
@@ -93,10 +104,6 @@ public partial class Wolf : CharacterBody2D, ICreature
         Behavior.ChangeMode(CreatureBehaviorMode.Type.MeleeAttack, creature);
         return true;
     }
-
-    public override void _PhysicsProcess(double delta) {
-        Behavior.ProcessPhysics(delta);
-	}
 
     void _BodyEnteredVision(Node2D node) => Behavior.BodyEnteredVision(node);
     void _BodyExitedVision(Node2D node) => Behavior.BodyExitedVision(node);

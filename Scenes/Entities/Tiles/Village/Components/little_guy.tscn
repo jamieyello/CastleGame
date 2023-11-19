@@ -1,10 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0lisl2ip3qui"]
+[gd_scene load_steps=8 format=3 uid="uid://d0lisl2ip3qui"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.cs" id="1_f46dv"]
+[ext_resource type="Shader" path="res://Shaders/highlight.gdshader" id="2_2xark"]
 [ext_resource type="Texture2D" uid="uid://di033j54wb5mq" path="res://Sprites/little_guy.png" id="2_6n8nh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4f8m"]
 size = Vector2(4, 8)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7n2h"]
+shader = ExtResource("2_2xark")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3cs2x"]
 animations = [{
@@ -33,6 +42,7 @@ shape = SubResource("RectangleShape2D_y4f8m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_e7n2h")
 sprite_frames = SubResource("SpriteFrames_3cs2x")
 
 [node name="Vision" type="Area2D" parent="."]

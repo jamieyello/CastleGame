@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://qk63t6qoj2qh"]
+[gd_scene load_steps=11 format=3 uid="uid://qk63t6qoj2qh"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_gg5ak"]
 [ext_resource type="Script" path="res://Scenes/Levels/BuildingGrid.cs" id="2_q2fkj"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://7bx1n3lhkquq" path="res://Scenes/UI/gameplay_ui.tscn" id="3_p7t6h"]
 [ext_resource type="Script" path="res://Scenes/UI/gameplay_ui.cs" id="4_agt0q"]
 [ext_resource type="Script" path="res://Scenes/Utilities/Camera.cs" id="5_fq60h"]
+[ext_resource type="PackedScene" uid="uid://eropscspad3c" path="res://Scenes/Entities/Creatures/swordsman.tscn" id="7_gulce"]
+[ext_resource type="PackedScene" uid="uid://dxl4voltjxmn8" path="res://Scenes/Entities/Creatures/wolf.tscn" id="9_ohfdt"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gmias"]
 texture = ExtResource("3_abe6d")
@@ -1102,6 +1104,7 @@ script = ExtResource("5_fq60h")
 
 [node name="GameplayUI" parent="CanvasLayer" instance=ExtResource("3_p7t6h")]
 script = ExtResource("4_agt0q")
+metadata/_edit_use_anchors_ = true
 
 [node name="World" type="Node2D" parent="."]
 position = Vector2(-2816, -2816)
@@ -1119,3 +1122,15 @@ script = ExtResource("2_q2fkj")
 Width = 50
 Height = 50
 Size = 128
+
+[node name="Swordsman" parent="." instance=ExtResource("7_gulce")]
+position = Vector2(125, 379)
+
+[node name="Swordsman2" parent="." instance=ExtResource("7_gulce")]
+position = Vector2(184, 395)
+
+[node name="Wolf" parent="." instance=ExtResource("9_ohfdt")]
+position = Vector2(32, 289)
+
+[node name="Wolf2" parent="." instance=ExtResource("9_ohfdt")]
+position = Vector2(95, 206)

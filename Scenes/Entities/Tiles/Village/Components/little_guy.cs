@@ -8,6 +8,7 @@ public partial class little_guy : CharacterBody2D, ICreature
 	[Export]
     public CreatureStats Stats { get; private set; } = new();
     public CreatureBehavior Behavior { get; private set; }
+    public bool Highlight { get; set; }
 
     public bool IsBeast => false;
 
@@ -22,7 +23,8 @@ public partial class little_guy : CharacterBody2D, ICreature
 	public Vector2 SpeedCap = new(1000f, 1000f);
 
     public override void _Ready() {
-		Behavior = new(this, new() { {
+        ((ICreature)this).CreatureReady();
+        Behavior = new(this, new() { {
 				CreatureBehaviorMode.Type.Idle, 
 				new() { 
 					Animation = "default", 
@@ -56,9 +58,14 @@ public partial class little_guy : CharacterBody2D, ICreature
         return false;
     }
 
+    public override void _Draw() {
+        ((ICreature)this).CreatureDraw();
+    }
+
     public override void _PhysicsProcess(double delta) {
-		Behavior.ProcessPhysics(delta);
-	}
+        ((ICreature)this).CreatureProcessPhysics(delta);
+        Behavior.ProcessPhysics(delta);
+    }
 
     void _BodyEnteredVision(Node2D node) => Behavior.BodyEnteredVision(node);
     void _BodyExitedVision(Node2D node) => Behavior.BodyExitedVision(node);

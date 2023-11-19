@@ -23,5 +23,43 @@ public static class Utility
         } while (r == Vector2.Zero);
         return r;
     }
+
+    public static Rect2 GetSelectRect(Vector2 starting_point, Vector2 current_point) {
+        var point = starting_point;
+        var size = current_point - starting_point;
+
+        if (size.X < 0f) {
+            point.X += size.X;
+            size.X = MathF.Abs(size.X);
+        }
+
+        if (size.Y < 0f) {
+            point.Y += size.Y;
+            size.Y = MathF.Abs(size.Y);
+        }
+
+        return new(point, size);
+    }
+
+    // wow
+    //public static Rect2 GetSelectRect(Vector2 starting_point, Vector2 current_point) => new(
+    //        MathF.Min(starting_point.X, current_point.X),
+    //        MathF.Min(starting_point.Y, current_point.Y),
+    //        MathF.Max(starting_point.X, current_point.X),
+    //        MathF.Max(starting_point.Y, current_point.Y)
+    //    );
+
+    //public static Rect2 GetSelectRect(Vector2 starting_point, Vector2 current_point)
+    //{
+    //    var size = starting_point - current_point;
+
+    //    return new Rect2(
+    //        MathF.Min(size.X, 0f),
+    //        MathF.Min(size.Y, 0f),
+    //        MathF.Abs(size.X),
+    //        MathF.Abs(size.Y)
+
+    //        );
+    //}
 }
 

@@ -7,3 +7,4 @@ script = ExtResource("1_5vldn")
 Id = 0
 Name = "Player"
 Gold = 50.0
+Color = Color(1, 0, 0, 1)
