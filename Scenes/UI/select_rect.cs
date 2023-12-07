@@ -15,6 +15,10 @@ public partial class select_rect : Area2D
 	Vector2 start_mouse_p;
 	CollisionShape2D c_shape;
 
+	// This is not considered enabled until the box reaches a certain size. If the mouse is released before then, then it is interpreted as a "clear selection".
+	bool instant_click = true;
+	static int min_distance = 5;
+
     static readonly Color RectColor = new(0f, 0.5f, 1f, 0.5f);
 
 	// Called when the node enters the scene tree for the first time.
@@ -32,6 +36,7 @@ public partial class select_rect : Area2D
 
 		if (!held)
 		{
+			if (instant_click) GlobalData.Player.Runtime.Selection.Clear();
 			QueueFree();
 			return;
 		}
@@ -54,6 +59,11 @@ public partial class select_rect : Area2D
 			start_mouse_p = mouse_p;
 		}
 
+        if (instant_click) {
+            var travel = (start_mouse_p - mouse_p).Abs();
+            if (travel.X >= min_distance || travel.Y >= min_distance) instant_click = false;
+        }
+
 		var rect = Utility.GetSelectRect(start_mouse_p, mouse_p);
 		Position = rect.Position + rect.Size / 2;
 		shape.Size = rect.Size;
@@ -75,6 +85,7 @@ public partial class select_rect : Area2D
     void _BodyExited(Node2D body) {
 		if (body is ICreature c) {
 			contained_creatures.Remove(c);
-		}
+            GlobalData.Player.Runtime.Selection.Remove(c);
+        }
     }
 }

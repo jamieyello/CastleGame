@@ -1,16 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://eropscspad3c"]
+[gd_scene load_steps=10 format=3 uid="uid://eropscspad3c"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Creatures/swordsman.cs" id="1_838ok"]
 [ext_resource type="Texture2D" uid="uid://dqxit6lt35nao" path="res://Sprites/attack_man.png" id="1_k4wyp"]
-[ext_resource type="Shader" path="res://Shaders/highlight.gdshader" id="2_pftsx"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ms6jd"]
-shader = ExtResource("2_pftsx")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/width = 1.0
-shader_parameter/pattern = 0
-shader_parameter/inside = false
-shader_parameter/add_margins = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yxqlv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eahil"]
 atlas = ExtResource("1_k4wyp")
@@ -58,7 +51,7 @@ script = ExtResource("1_838ok")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_ms6jd")
+material = SubResource("ShaderMaterial_yxqlv")
 sprite_frames = SubResource("SpriteFrames_i417c")
 frame_progress = 0.369752
 

@@ -18,4 +18,6 @@ public class CreatureSelectData
     }
 
     public void Clear() => selected_creatures.Clear();
+
+    public bool IsSelected(ICreature creature) => selected_creatures.Contains(creature);
 }

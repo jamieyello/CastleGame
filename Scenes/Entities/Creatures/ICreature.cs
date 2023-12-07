@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using Castle.Static;
+using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace Castle.Scenes.Entities.Creatures
 {
-    // I am afraid of making an abstract class for a node.
+    // All ICreatures must;
+    // - Be a CharacterBody2D
+    // - Call CreatureReady, CreatureDraw, and CreatureProcessPhysics
+    // - Have an AnimatedSprite2D with a ShaderMaterial
     public interface ICreature
     {
         public enum AttackResult
@@ -22,7 +26,14 @@ namespace Castle.Scenes.Entities.Creatures
         public CreatureBehavior Behavior { get; }
         public int TeamId { get; set; }
         public bool IsBeast { get; }
-        public bool Highlight { get; set; }
+        public bool Highlighted => GlobalData.Player.Runtime.Selection.IsSelected(this);
+
+        static Shader HighlightShader = GD.Load<Shader>("res://Shaders/highlight.gdshader");
+
+        public Shader Shader {
+            get => ((ShaderMaterial)GetSprite().Material).Shader;
+            set => ((ShaderMaterial)GetSprite().Material).Shader = value;
+        }
 
         // These must be called in every ICreature.
         #region Hooks
@@ -38,8 +49,8 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void CreatureProcessPhysics(double f)
         {
-            var sprite = GetSprite();
-            //sprite.Material.S
+            if (Highlighted) Shader = HighlightShader;
+            else Shader = null;
         }
         #endregion
 
