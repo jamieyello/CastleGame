@@ -49,8 +49,15 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void CreatureProcessPhysics(double f)
         {
-            if (Highlighted) Shader = HighlightShader;
-            else Shader = null;
+            if (Highlighted && !(Shader != HighlightShader))
+            {
+                //GetSprite().Material = new ShaderMaterial();
+                Shader = HighlightShader;
+            }
+            else
+            {
+                Shader = null;
+            }
         }
         #endregion
 

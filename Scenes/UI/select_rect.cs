@@ -3,6 +3,7 @@ using Castle.Static;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public partial class select_rect : Area2D
 {
@@ -51,8 +52,8 @@ public partial class select_rect : Area2D
 	{
         var vp = GetViewport();
         var camera = vp.GetCamera2D();
-        var mouse_p = vp.GetMousePosition();
-		mouse_p += (camera.Position - camera.GetViewportRect().Size / 2);
+        var mouse_p = vp.GetMousePosition() / camera.Zoom.X;
+		mouse_p += (camera.Position - (camera.GetViewportRect().Size / camera.Zoom.X) / 2);
 
 		if (set_start)
 		{

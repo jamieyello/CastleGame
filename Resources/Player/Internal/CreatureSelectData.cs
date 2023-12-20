@@ -14,7 +14,7 @@ public class CreatureSelectData
     }
 
     public void Remove(ICreature creature) {
-        if (!selected_creatures.Contains(creature)) selected_creatures.Remove(creature);
+        if (selected_creatures.Contains(creature)) selected_creatures.Remove(creature);
     }
 
     public void Clear() => selected_creatures.Clear();
