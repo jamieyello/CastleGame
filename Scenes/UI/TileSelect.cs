@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public partial class TileSelect : VBoxContainer
 {
 	[Export]
-	public TileStats[] AvailableTiles = new TileStats[0];
+	public TileStats[] AvailableTiles = Array.Empty<TileStats>();
 
-	static PackedScene TileDragButton = GD.Load<PackedScene>("uid://d3fv048p2asg6");
+	static readonly PackedScene TileDragButton = GD.Load<PackedScene>("uid://d3fv048p2asg6");
 
 	public override void _Ready()
 	{

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TileStats" load_steps=4 format=3 uid="uid://d3ujndlac6l6c"]
+
+[ext_resource type="Texture2D" uid="uid://b00h3sh1a3k2l" path="res://Sprites/farm p3.png" id="1_bous4"]
+[ext_resource type="Script" path="res://Resources/TileStats.cs" id="1_xoxs4"]
+[ext_resource type="PackedScene" uid="uid://bs5expls0b52c" path="res://Scenes/Entities/Tiles/Farm/farm.tscn" id="2_ibly1"]
+
+[resource]
+script = ExtResource("1_xoxs4")
+TileName = "Farm"
+Description = "Creates food for the village."
+BaseHp = 10
+Cost = 30
+Preview = ExtResource("1_bous4")
+Tile = ExtResource("2_ibly1")

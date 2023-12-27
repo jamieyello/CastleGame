@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://bs5expls0b52c"]
+
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Farm/farm.cs" id="1_4qhb4"]
+[ext_resource type="Texture2D" uid="uid://dkbe8yllljgdh" path="res://Sprites/farm p1.png" id="2_fujax"]
+[ext_resource type="Texture2D" uid="uid://b00h3sh1a3k2l" path="res://Sprites/farm p3.png" id="3_bqxry"]
+[ext_resource type="Texture2D" uid="uid://c8wxpng53wcqf" path="res://Sprites/farm p2.png" id="4_urvd8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2o7bb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_fujax")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bqxry")
+}],
+"loop": true,
+"name": &"grown",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_urvd8")
+}],
+"loop": true,
+"name": &"mid",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v74au"]
+size = Vector2(111, 108)
+
+[node name="Farm" type="CharacterBody2D"]
+script = ExtResource("1_4qhb4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_2o7bb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -2)
+shape = SubResource("RectangleShape2D_v74au")

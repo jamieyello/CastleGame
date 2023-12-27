@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://7bx1n3lhkquq"]
+[gd_scene load_steps=5 format=3 uid="uid://7bx1n3lhkquq"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/GoldLabel.cs" id="1_n5oak"]
 [ext_resource type="Script" path="res://Scenes/UI/TileSelect.cs" id="2_v4vrp"]
 [ext_resource type="Resource" uid="uid://dxuf4yqvsi5at" path="res://Resources/TileData/VillageData.tres" id="3_u8vd8"]
+[ext_resource type="Resource" uid="uid://d3ujndlac6l6c" path="res://Resources/TileData/FarmData.tres" id="4_fi8id"]
 
 [node name="GameplayUI" type="Control"]
 layout_mode = 3
@@ -70,4 +71,4 @@ layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 0
 script = ExtResource("2_v4vrp")
-AvailableTiles = [ExtResource("3_u8vd8")]
+AvailableTiles = [ExtResource("3_u8vd8"), ExtResource("4_fi8id")]
