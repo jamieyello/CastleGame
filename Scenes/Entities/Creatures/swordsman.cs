@@ -12,6 +12,7 @@ public partial class swordsman : CharacterBody2D, ICreature
     public CreatureStats Stats { get; private set; } = new();
     public CreatureBehavior Behavior { get; private set; }
     public bool Highlight { get; set; }
+    bool? ICreature.prev_highlighted { get; set; }
 
     public override void _Ready() {
         ((ICreature)this).CreatureReady();

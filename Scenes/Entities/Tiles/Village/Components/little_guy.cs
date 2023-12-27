@@ -9,6 +9,7 @@ public partial class little_guy : CharacterBody2D, ICreature
     public CreatureStats Stats { get; private set; } = new();
     public CreatureBehavior Behavior { get; private set; }
     public bool Highlight { get; set; }
+    bool? ICreature.prev_highlighted { get; set; }
 
     public bool IsBeast => false;
 

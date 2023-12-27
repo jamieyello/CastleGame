@@ -1093,7 +1093,6 @@ script = ExtResource("1_gg5ak")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(220, 414)
-zoom = Vector2(0.8, 0.8)
 limit_left = -2816
 limit_top = -2816
 limit_right = 3500
@@ -1134,4 +1133,4 @@ position = Vector2(184, 395)
 position = Vector2(32, 289)
 
 [node name="Wolf2" parent="." instance=ExtResource("9_ohfdt")]
-position = Vector2(95, 206)
+position = Vector2(137, 187)

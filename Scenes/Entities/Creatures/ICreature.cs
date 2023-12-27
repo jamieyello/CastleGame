@@ -28,6 +28,8 @@ namespace Castle.Scenes.Entities.Creatures
         public bool IsBeast { get; }
         public bool Highlighted => GlobalData.Player.Runtime.Selection.IsSelected(this);
 
+        protected bool? prev_highlighted { get; set; }
+
         static Shader HighlightShader = GD.Load<Shader>("res://Shaders/highlight.gdshader");
 
         public Shader Shader {
@@ -49,14 +51,19 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void CreatureProcessPhysics(double f)
         {
-            if (Highlighted && !(Shader != HighlightShader))
-            {
-                //GetSprite().Material = new ShaderMaterial();
+            HandleHighlight();
+        }
+
+        void HandleHighlight() {
+            if (prev_highlighted.HasValue && prev_highlighted == Highlighted) return;
+            if (Highlighted) {
+                GetSprite().Material = new ShaderMaterial();
                 Shader = HighlightShader;
+                AsNode().QueueRedraw();
             }
-            else
-            {
+            else {
                 Shader = null;
+                AsNode().QueueRedraw();
             }
         }
         #endregion

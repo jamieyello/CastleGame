@@ -12,6 +12,7 @@ public partial class Wolf : CharacterBody2D, ICreature
     public CreatureBehavior Behavior { get; set; }
     public bool IsBeast => true;
     public bool Highlight { get; set; }
+    bool? ICreature.prev_highlighted { get; set; }
 
     public override void _Ready() {
         ((ICreature)this).CreatureReady();
