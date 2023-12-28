@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs5expls0b52c"]
+[gd_scene load_steps=9 format=3 uid="uid://bs5expls0b52c"]
 
 [ext_resource type="Script" path="res://Scenes/Entities/Tiles/Farm/farm.cs" id="1_4qhb4"]
 [ext_resource type="Texture2D" uid="uid://dkbe8yllljgdh" path="res://Sprites/farm p1.png" id="2_fujax"]
 [ext_resource type="Texture2D" uid="uid://b00h3sh1a3k2l" path="res://Sprites/farm p3.png" id="3_bqxry"]
 [ext_resource type="Texture2D" uid="uid://c8wxpng53wcqf" path="res://Sprites/farm p2.png" id="4_urvd8"]
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Population.cs" id="5_r8isg"]
+[ext_resource type="PackedScene" uid="uid://ye6gcpnuuj8m" path="res://Scenes/Entities/Tiles/Farm/Components/farmer.tscn" id="6_tvk1k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2o7bb"]
 animations = [{
@@ -42,7 +44,28 @@ script = ExtResource("1_4qhb4")
 texture_filter = 1
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_2o7bb")
+animation = &"mid"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, -2)
 shape = SubResource("RectangleShape2D_v74au")
+
+[node name="BuildingCollision" type="Node2D" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="BuildingCollision"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Walls"]
+polygon = PackedVector2Array(-56, -56, 56, -56, 55, -52, 55, 48, 52, 48, 52, -52, -52, -52, -52, 44, 52, 44, 52, 48, -52, 48, -56, 48, -56, -52)
+
+[node name="Windmill" type="StaticBody2D" parent="BuildingCollision"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BuildingCollision/Windmill"]
+polygon = PackedVector2Array(-32, -36, -32, -52, -12, -52, -12, -36, -16, -32, -28, -32)
+
+[node name="Population" type="Node2D" parent="."]
+script = ExtResource("5_r8isg")
+Creature = ExtResource("6_tvk1k")
+
+[node name="SpawnPoints" type="Node2D" parent="Population"]

@@ -11,6 +11,8 @@ public partial class PlayerGameData : Resource
     [Export]
     public double Gold;
     [Export]
+    public double Food;
+    [Export]
     public Color Color;
 
     public PlayerGameRuntimeData Runtime = new();

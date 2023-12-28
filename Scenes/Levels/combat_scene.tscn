@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://qk63t6qoj2qh"]
+[gd_scene load_steps=13 format=3 uid="uid://qk63t6qoj2qh"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_gg5ak"]
 [ext_resource type="Script" path="res://Scenes/Levels/BuildingGrid.cs" id="2_q2fkj"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://eropscspad3c" path="res://Scenes/Entities/Creatures/swordsman.tscn" id="7_gulce"]
 [ext_resource type="AudioStream" uid="uid://bboqv0a1ovaru" path="res://Audio/Music/village.wav" id="9_2jqnq"]
 [ext_resource type="PackedScene" uid="uid://dxl4voltjxmn8" path="res://Scenes/Entities/Creatures/wolf.tscn" id="9_ohfdt"]
+[ext_resource type="PackedScene" uid="uid://ye6gcpnuuj8m" path="res://Scenes/Entities/Tiles/Farm/Components/farmer.tscn" id="10_m2x32"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gmias"]
 texture = ExtResource("3_abe6d")
@@ -1140,3 +1141,6 @@ position = Vector2(137, 187)
 stream = ExtResource("9_2jqnq")
 volume_db = -14.71
 autoplay = true
+
+[node name="Farmer" parent="." instance=ExtResource("10_m2x32")]
+texture_filter = 1
