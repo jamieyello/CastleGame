@@ -3,6 +3,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -90,7 +91,7 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void MoveTo(Vector2 position)
         {
-            
+            Behavior.ChangeMode(CreatureBehaviorMode.Type.Navigating);
         }
 
         static bool IsEnemy(ICreature you, ICreature other) {

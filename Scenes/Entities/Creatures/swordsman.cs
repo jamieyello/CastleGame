@@ -51,11 +51,6 @@ public partial class swordsman : CharacterBody2D, ICreature
         return velocity;
     }
 
-    public void MoveTo(Vector2 pointOfInterest)
-    {
-        //_movementTargetPosition = pointOfInterest;
-    }
-
     public override void _Draw() {
         ((ICreature)this).CreatureDraw();
     }
