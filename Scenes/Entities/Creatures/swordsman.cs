@@ -30,6 +30,13 @@ public partial class swordsman : CharacterBody2D, ICreature
                     GetAdditionalDirection = GetShakeTowards,
                     GetTime = () => 0.2f + Random.Shared.NextSingle() * 1f,
                 }
+            }, {
+                CreatureBehaviorMode.Type.Navigating, new() {
+                    Animation = "default",
+                    UseNavigationMesh = true,
+                    NavigationSpeed = 100f,
+                    NavigationTarget = new(100, 100)
+                }
             }
         });
     }
