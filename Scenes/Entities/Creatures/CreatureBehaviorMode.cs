@@ -7,6 +7,7 @@ public class CreatureBehaviorMode
     public enum Type
     {
         Idle,
+        Walking,
         Wandering,
         Hunting,
         Scared,
