@@ -82,7 +82,7 @@ namespace Castle.Scenes.Entities.Creatures
                 {
                     Vector2 currentAgentPosition = body.GlobalTransform.Origin;
                     Vector2 nextPathPosition = navigation_agent.GetNextPathPosition();
-                    body.Velocity = currentAgentPosition.DirectionTo(nextPathPosition) * mode.NavigationSpeed;
+                    velocity = currentAgentPosition.DirectionTo(nextPathPosition) * mode.NavigationSpeed;
                 }
             }
             else

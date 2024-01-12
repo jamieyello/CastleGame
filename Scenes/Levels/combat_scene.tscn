@@ -1090,7 +1090,7 @@ texture = ExtResource("3_abe6d")
 [sub_resource type="TileSet" id="TileSet_d2nk3"]
 sources/0 = SubResource("TileSetAtlasSource_gmias")
 
-[node name="CombatScene" type="Node2D"]
+[node name="CombatScene2" type="Node2D"]
 script = ExtResource("1_gg5ak")
 
 [node name="Camera2D" type="Camera2D" parent="."]
