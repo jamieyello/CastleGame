@@ -31,7 +31,7 @@ namespace Castle.Scenes.Entities.Creatures
         CreatureBehaviorMode.Type? change_mode;
 
         // MAINTAINANCE AREA
-        private Vector2 _movementTargetPosition = new Vector2(70.0f, 226.0f);
+        public Vector2 _movementTargetPosition = new();
         // MAINTAINANCE AREA
 
         public CreatureBehavior(ICreature creature, Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes)
@@ -51,6 +51,11 @@ namespace Castle.Scenes.Entities.Creatures
 
             this.modes = new(modes);
             ChangeMode(CreatureBehaviorMode.Type.Idle);
+        }
+
+        public void SetValues(Vector2 position)
+        {
+            navigation_agent.TargetPosition = position;
         }
 
         private async void ActorSetup()

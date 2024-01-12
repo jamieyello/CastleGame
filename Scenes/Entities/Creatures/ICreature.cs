@@ -92,6 +92,7 @@ namespace Castle.Scenes.Entities.Creatures
         public void MoveTo(Vector2 position)
         {
             Behavior.ChangeMode(CreatureBehaviorMode.Type.Navigating);
+            Behavior.SetValues(position);
         }
 
         static bool IsEnemy(ICreature you, ICreature other) {

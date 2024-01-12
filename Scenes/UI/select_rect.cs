@@ -38,6 +38,7 @@ public partial class select_rect : Area2D
 		if (!held)
 		{
 			if (instant_click) GlobalData.Player.Runtime.Selection.Clear();
+
 			QueueFree();
 			return;
 		}
