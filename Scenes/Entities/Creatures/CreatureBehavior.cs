@@ -12,14 +12,14 @@ namespace Castle.Scenes.Entities.Creatures
     public class CreatureBehavior
     {
         readonly Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes;
-        readonly List<Creature> creatures_in_vision = new();
-        readonly List<Creature> creatures_in_attack_range = new();
+        readonly List<ICreature> creatures_in_vision = new();
+        readonly List<ICreature> creatures_in_attack_range = new();
 
-        readonly Creature creature;
+        readonly ICreature creature;
         readonly CharacterBody2D body;
         readonly AnimatedSprite2D sprite;
 
-        public Creature Focus { get; private set; }
+        public ICreature Focus { get; private set; }
 
         CreatureBehaviorMode mode;
         double? time;
@@ -34,7 +34,7 @@ namespace Castle.Scenes.Entities.Creatures
         public Vector2 _movementTargetPosition = new();
         // MAINTAINANCE AREA
 
-        public CreatureBehavior(Creature creature, Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes)
+        public CreatureBehavior(ICreature creature, Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes)
         {
             this.creature = creature;
             body = (CharacterBody2D)creature;
@@ -130,13 +130,13 @@ namespace Castle.Scenes.Entities.Creatures
             }
         }
 
-        public bool TryChangeMode(CreatureBehaviorMode.Type mode, Creature focus = null) {
+        public bool TryChangeMode(CreatureBehaviorMode.Type mode, ICreature focus = null) {
             if (!modes.ContainsKey(mode)) return false;
             ChangeMode(mode, focus);
             return true;
         }
 
-        public void ChangeMode(CreatureBehaviorMode.Type mode, Creature focus = null)
+        public void ChangeMode(CreatureBehaviorMode.Type mode, ICreature focus = null)
         {
             // Don't act on changes to the mode mid-callbacks
             if (processing) {
@@ -156,22 +156,22 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void BodyEnteredVision(Node2D node) {
             if (node == body) return;
-            if (node is Creature creature) creatures_in_vision.Add(creature);
+            if (node is ICreature creature) creatures_in_vision.Add(creature);
         }
 
         public void BodyExitedVision(Node2D node) {
             if (node == body) return;
-            if (node is Creature creature) creatures_in_vision.Remove(creature);
+            if (node is ICreature creature) creatures_in_vision.Remove(creature);
         }
 
         public void BodyEnteredAttackRange(Node2D node) {
             if (node == body) return;
-            if (node is Creature creature) creatures_in_attack_range.Add(creature);
+            if (node is ICreature creature) creatures_in_attack_range.Add(creature);
         }
 
         public void BodyExitedAttackRange(Node2D node) {
             if (node == body) return;
-            if (node is Creature creature) creatures_in_attack_range.Remove(creature);
+            if (node is ICreature creature) creatures_in_attack_range.Remove(creature);
         }
     }
 }

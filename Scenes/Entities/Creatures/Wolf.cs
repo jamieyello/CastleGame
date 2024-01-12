@@ -3,13 +3,19 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Wolf : Creature
+public partial class Wolf : CharacterBody2D, ICreature
 {
-    public override bool IsBeast => true;
+    public int TeamId { get; set; } = 1;
+
+    [Export]
+    public CreatureStats Stats { get; private set; } = new();
+    public CreatureBehavior Behavior { get; set; }
+    public bool IsBeast => true;
+    public bool Highlight { get; set; }
+    bool? ICreature.prev_highlighted { get; set; }
 
     public override void _Ready() {
-        TeamId = 1;
-        CreatureReady();
+        ((ICreature)this).CreatureReady();
         Behavior = new CreatureBehavior(this, new() { { 
                 CreatureBehaviorMode.Type.Idle, 
                 new() { 
@@ -71,30 +77,30 @@ public partial class Wolf : Creature
     }
 
     public override void _Draw() {
-        CreatureDraw();
+        ((ICreature)this).CreatureDraw();
     }
 
     public override void _PhysicsProcess(double delta) {
-        CreatureProcessPhysics(delta);
+        ((ICreature)this).CreatureProcessPhysics(delta);
         Behavior.ProcessPhysics(delta);
     }
 
-    (CreatureBehaviorMode.Type NewMode, Creature NewTarget)? ProcessAttack()
+    (CreatureBehaviorMode.Type NewMode, ICreature NewTarget)? ProcessAttack()
     {
         Behavior.Focus.Attack(this, Stats.Attack, out var result);
-        if (result == AttackResult.killed) return (CreatureBehaviorMode.Type.Eating, null);
+        if (result == ICreature.AttackResult.killed) return (CreatureBehaviorMode.Type.Eating, null);
         return null;
     }
 
-    bool ProcessCreatureInVision(Creature creature) {
-        if (IsEnemy(this, creature)) {
+    bool ProcessCreatureInVision(ICreature creature) {
+        if (ICreature.IsEnemy(this, creature)) {
             Behavior.ChangeMode(CreatureBehaviorMode.Type.Hunting, creature);
             return true;
         }
         return false;
     }
 
-    bool HuntingProcessCreatureInAttackRange(Creature creature) {
+    bool HuntingProcessCreatureInAttackRange(ICreature creature) {
         if (creature != Behavior.Focus) return false;
         Behavior.ChangeMode(CreatureBehaviorMode.Type.MeleeAttack, creature);
         return true;

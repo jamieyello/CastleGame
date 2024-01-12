@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Castle.Scenes.Entities.Creatures
 {
-    // All Creatures must;
+    // All ICreatures must;
     // - Be a CharacterBody2D
     // - Call CreatureReady, CreatureDraw, and CreatureProcessPhysics
     // - Have an AnimatedSprite2D with a ShaderMaterial
-    public abstract partial class Creature : CharacterBody2D
+    public interface ICreature
     {
         public enum AttackResult
         {
@@ -23,11 +23,10 @@ namespace Castle.Scenes.Entities.Creatures
             missed,
         }
 
-        [Export]
-        public CreatureStats Stats { get; set; }
-        public CreatureBehavior Behavior { get; protected set; }
+        public CreatureStats Stats { get; }
+        public CreatureBehavior Behavior { get; }
         public int TeamId { get; set; }
-        public virtual bool IsBeast { get; }
+        public bool IsBeast { get; }
         public bool Highlighted => GlobalData.Player.Runtime.Selection.IsSelected(this);
 
         protected bool? prev_highlighted { get; set; }
@@ -70,11 +69,11 @@ namespace Castle.Scenes.Entities.Creatures
         }
         #endregion
 
-        public void Scare(Creature scarer) {
+        public void Scare(ICreature scarer) {
             Behavior.ChangeMode(CreatureBehaviorMode.Type.Scared, scarer);
         }
 
-        public void Attack(Creature attacker, int damage, out AttackResult result) {
+        public void Attack(ICreature attacker, int damage, out AttackResult result) {
             Stats.Hp -= damage;
             if (Stats.Hp == 0) {
                 Kill(attacker);
@@ -86,7 +85,7 @@ namespace Castle.Scenes.Entities.Creatures
             }
         }
 
-        public void Kill(Creature killer) {
+        public void Kill(ICreature killer) {
             AsNode().QueueFree();
         }
 
@@ -96,7 +95,7 @@ namespace Castle.Scenes.Entities.Creatures
             Behavior.SetValues(position);
         }
 
-        protected static bool IsEnemy(Creature you, Creature other) {
+        static bool IsEnemy(ICreature you, ICreature other) {
             return you.TeamId != other.TeamId;
         }
 

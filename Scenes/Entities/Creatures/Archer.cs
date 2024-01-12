@@ -2,11 +2,20 @@ using Castle.Scenes.Entities.Creatures;
 using Godot;
 using System;
 
-public partial class Archer : Creature
+public partial class Archer : CharacterBody2D, ICreature
 {
+    public int TeamId { get; set; }
+    public bool IsBeast { get; } = false;
+
+    [Export]
+    public CreatureStats Stats { get; private set; } = new();
+    public CreatureBehavior Behavior { get; private set; }
+    public bool Highlight { get; set; }
+    bool? ICreature.prev_highlighted { get; set; }
+
     public override void _Ready()
     {
-        CreatureReady();
+        ((ICreature)this).CreatureReady();
         Behavior = new(this, new() { {
                 CreatureBehaviorMode.Type.Idle,
                 new() {
@@ -19,9 +28,9 @@ public partial class Archer : Creature
         });
     }
 
-    bool ProcessCreatureInVision(Creature creature)
+    bool ProcessCreatureInVision(ICreature creature)
     {
-        if (IsEnemy(this, creature))
+        if (ICreature.IsEnemy(this, creature))
         {
             //if (creature.IsBeast)
             //{
@@ -42,12 +51,12 @@ public partial class Archer : Creature
 
     public override void _Draw()
     {
-        CreatureDraw();
+        ((ICreature)this).CreatureDraw();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        CreatureProcessPhysics(delta);
+        ((ICreature)this).CreatureProcessPhysics(delta);
         Behavior.ProcessPhysics(delta);
     }
 

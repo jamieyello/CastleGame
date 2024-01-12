@@ -2,8 +2,17 @@ using Castle.Scenes.Entities.Creatures;
 using Godot;
 using System;
 
-public partial class little_guy : Creature
+public partial class little_guy : CharacterBody2D, ICreature
 {
+    public int TeamId { get; set; }
+	[Export]
+    public CreatureStats Stats { get; private set; } = new();
+    public CreatureBehavior Behavior { get; private set; }
+    public bool Highlight { get; set; }
+    bool? ICreature.prev_highlighted { get; set; }
+
+    public bool IsBeast => false;
+
     [Export]
 	public float MoveDistance = 30f;
 
@@ -15,7 +24,7 @@ public partial class little_guy : Creature
 	public Vector2 SpeedCap = new(1000f, 1000f);
 
     public override void _Ready() {
-        CreatureReady();
+        ((ICreature)this).CreatureReady();
         Behavior = new(this, new() { {
 				CreatureBehaviorMode.Type.Idle, 
 				new() { 
@@ -42,20 +51,20 @@ public partial class little_guy : Creature
 		});
     }
 
-    bool ProcessCreatureInVision(Creature creature) {
-        if (IsEnemy(this, creature)) {
-			Scare(creature);
+    bool ProcessCreatureInVision(ICreature creature) {
+        if (ICreature.IsEnemy(this, creature)) {
+			((ICreature)this).Scare(creature);
 			return true;
         }
         return false;
     }
 
     public override void _Draw() {
-        CreatureDraw();
+        ((ICreature)this).CreatureDraw();
     }
 
     public override void _PhysicsProcess(double delta) {
-        CreatureProcessPhysics(delta);
+        ((ICreature)this).CreatureProcessPhysics(delta);
         Behavior.ProcessPhysics(delta);
     }
 
