@@ -2,7 +2,7 @@ using Castle.Scenes.Entities.Creatures;
 using Godot;
 using System;
 
-public partial class little_guy : Creature
+public partial class LittleGuy : Creature
 {
     [Export]
 	public float MoveDistance = 30f;

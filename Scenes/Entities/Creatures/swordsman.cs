@@ -3,7 +3,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class swordsman : Creature
+public partial class Swordsman : Creature
 {
     public override void _Ready() {
         CreatureReady();

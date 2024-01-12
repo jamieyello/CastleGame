@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0lisl2ip3qui"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.cs" id="1_f46dv"]
-[ext_resource type="Texture2D" uid="uid://di033j54wb5mq" path="res://Sprites/little_guy.png" id="2_6n8nh"]
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/Components/LittleGuy.cs" id="1_vp3fq"]
+[ext_resource type="Texture2D" uid="uid://di033j54wb5mq" path="res://Sprites/little_guy.png" id="2_r0k7f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4f8m"]
 size = Vector2(4, 8)
@@ -12,7 +12,7 @@ size = Vector2(4, 8)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_6n8nh")
+"texture": ExtResource("2_r0k7f")
 }],
 "loop": true,
 "name": &"default",
@@ -26,8 +26,9 @@ radius = 51.5218
 scale = Vector2(2, 2)
 collision_layer = 4
 collision_mask = 4
-script = ExtResource("1_f46dv")
+script = ExtResource("1_vp3fq")
 MoveDistance = 3.0
+MoveRate = null
 SpeedCap = Vector2(12, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

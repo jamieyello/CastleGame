@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bljppdumdlsyb"]
 
-[ext_resource type="Script" path="res://Scenes/UI/select_rect.cs" id="1_d451b"]
+[ext_resource type="Script" path="res://Scenes/UI/SelectRect.cs" id="1_d451b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0774k"]
 size = Vector2(97, 43)

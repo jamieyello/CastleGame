@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://eropscspad3c"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/Creatures/swordsman.cs" id="1_838ok"]
+[ext_resource type="Script" path="res://Scenes/Entities/Creatures/Swordsman.cs" id="1_838ok"]
 [ext_resource type="Texture2D" uid="uid://dqxit6lt35nao" path="res://Sprites/attack_man.png" id="1_k4wyp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yxqlv"]
