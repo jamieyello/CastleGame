@@ -68,11 +68,11 @@ namespace Castle.Scenes.Entities.Creatures
         }
         #endregion
 
-        public virtual void Scare(ICreature scarer) {
+        public void Scare(ICreature scarer) {
             Behavior.ChangeMode(CreatureBehaviorMode.Type.Scared, scarer);
         }
 
-        public virtual void Attack(ICreature attacker, int damage, out AttackResult result) {
+        public void Attack(ICreature attacker, int damage, out AttackResult result) {
             Stats.Hp -= damage;
             if (Stats.Hp == 0) {
                 Kill(attacker);
@@ -84,8 +84,13 @@ namespace Castle.Scenes.Entities.Creatures
             }
         }
 
-        public virtual void Kill(ICreature killer) {
+        public void Kill(ICreature killer) {
             AsNode().QueueFree();
+        }
+
+        public void MoveTo(Vector2 position)
+        {
+
         }
 
         static bool IsEnemy(ICreature you, ICreature other) {

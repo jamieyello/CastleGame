@@ -1,3 +1,4 @@
+using Castle.Static;
 using Godot;
 using System;
 
@@ -35,6 +36,16 @@ public partial class Camera : Camera2D
     {
         var held = Input.IsMouseButtonPressed(MouseButton.Left);
         if (!held) { 
+            if (mouse_drag_start != null && !dragging)
+            {
+                GD.Print("Short click");
+
+                foreach (var selected_creature in GlobalData.Player.Runtime.Selection)
+                {
+                    selected_creature.
+                }
+            }
+
             dragging = false;
             mouse_drag_start = null;
             pos_drag_start = null;
