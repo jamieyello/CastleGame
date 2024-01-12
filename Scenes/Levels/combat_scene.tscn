@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://qk63t6qoj2qh"]
+[gd_scene load_steps=14 format=3 uid="uid://bgs603sdgtc3e"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_gg5ak"]
 [ext_resource type="Script" path="res://Scenes/Levels/BuildingGrid.cs" id="2_q2fkj"]
@@ -1090,7 +1090,13 @@ texture = ExtResource("3_abe6d")
 [sub_resource type="TileSet" id="TileSet_d2nk3"]
 sources/0 = SubResource("TileSetAtlasSource_gmias")
 
-[node name="CombatScene2" type="Node2D"]
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_moog2"]
+vertices = PackedVector2Array(784, 985, -326, 982, -307, -74, 771, -78)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-317, -84, 781, -89, 795, 996, -337, 992)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="CombatScene" type="Node2D"]
 script = ExtResource("1_gg5ak")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -1124,6 +1130,10 @@ script = ExtResource("2_q2fkj")
 Width = 50
 Height = 50
 Size = 128
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(51, -8)
+navigation_polygon = SubResource("NavigationPolygon_moog2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_2jqnq")
