@@ -38,11 +38,14 @@ public partial class Camera : Camera2D
         if (!held) { 
             if (mouse_drag_start != null && !dragging)
             {
-                GD.Print("Short click");
+                var vp = GetViewport();
+                var camera = vp.GetCamera2D();
+                var mouse_p = vp.GetMousePosition() / camera.Zoom.X;
+                mouse_p += (camera.Position - (camera.GetViewportRect().Size / camera.Zoom.X) / 2);
 
                 foreach (var selected_creature in GlobalData.Player.Runtime.Selection)
                 {
-                    selected_creature.MoveTo(mouse_drag_start.Value);
+                    selected_creature.MoveTo(mouse_p);
                 }
             }
 
