@@ -4,7 +4,7 @@ using System;
 
 public partial class Population : Node2D
 {
-	/// <summary> The <see cref="ICreature"/> that will represent a unit of population. </summary>
+	/// <summary> The <see cref="Creature"/> that will represent a unit of population. </summary>
 	[Export] public PackedScene Creature { get; set; }
 
 	/// <summary> How many creatures can be spawned to represent the population. </summary>

@@ -3,19 +3,10 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class swordsman : CharacterBody2D, ICreature
+public partial class swordsman : Creature
 {
-    public int TeamId { get; set; }
-    public bool IsBeast => false;
-
-    [Export]
-    public CreatureStats Stats { get; private set; } = new();
-    public CreatureBehavior Behavior { get; private set; }
-    public bool Highlight { get; set; }
-    bool? ICreature.prev_highlighted { get; set; }
-
     public override void _Ready() {
-        ((ICreature)this).CreatureReady();
+        CreatureReady();
         Behavior = new(this, new() { {
                 CreatureBehaviorMode.Type.Idle,
                 new() {
@@ -41,8 +32,8 @@ public partial class swordsman : CharacterBody2D, ICreature
         });
     }
 
-    bool ProcessCreatureInVision(ICreature creature) {
-        if (ICreature.IsEnemy(this, creature)) {
+    bool ProcessCreatureInVision(Creature creature) {
+        if (IsEnemy(this, creature)) {
             if (creature.IsBeast) {
                 Behavior.ChangeMode(CreatureBehaviorMode.Type.Scaring, creature);
                 creature.Scare(this);
@@ -59,11 +50,11 @@ public partial class swordsman : CharacterBody2D, ICreature
     }
 
     public override void _Draw() {
-        ((ICreature)this).CreatureDraw();
+        CreatureDraw();
     }
 
     public override void _PhysicsProcess(double delta) {
-        ((ICreature)this).CreatureProcessPhysics(delta);
+        CreatureProcessPhysics(delta);
         Behavior.ProcessPhysics(delta);
     }
 

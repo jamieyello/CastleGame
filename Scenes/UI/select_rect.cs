@@ -8,7 +8,7 @@ using System.Diagnostics;
 public partial class select_rect : Area2D
 {
 	/// <summary> A list of all contained creatures. Not necessarily the target team. </summary>
-	List<ICreature> contained_creatures = new();
+	List<Creature> contained_creatures = new();
 
 	public int TargetTeam;
 
@@ -78,14 +78,14 @@ public partial class select_rect : Area2D
     }
 
     void _BodyEntered(Node2D body) {
-		if (body is ICreature c) {
+		if (body is Creature c) {
 			contained_creatures.Add(c);
 			if (c.TeamId == TargetTeam) GlobalData.Player.Runtime.Selection.Add(c);
 		}
 	}
 
     void _BodyExited(Node2D body) {
-		if (body is ICreature c) {
+		if (body is Creature c) {
 			contained_creatures.Remove(c);
             GlobalData.Player.Runtime.Selection.Remove(c);
         }

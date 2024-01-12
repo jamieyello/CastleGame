@@ -2,30 +2,11 @@ using Castle.Scenes.Entities.Creatures;
 using Godot;
 using System;
 
-public partial class farmer : CharacterBody2D, ICreature
+public partial class farmer : Creature
 {
-    public int TeamId { get; set; }
-    [Export]
-    public CreatureStats Stats { get; private set; } = new();
-    public CreatureBehavior Behavior { get; private set; }
-    public bool Highlight { get; set; }
-    bool? ICreature.prev_highlighted { get; set; }
-
-    public bool IsBeast => false;
-
-    [Export]
-    public float MoveDistance = 30f;
-
-    /// <summary> 0f = will not move, 1f = will move every frame. </summary>
-    [Export]
-    public float MoveRate = 1f;
-
-    [Export]
-    public Vector2 SpeedCap = new(1000f, 1000f);
-
     public override void _Ready()
     {
-        ((ICreature)this).CreatureReady();
+        CreatureReady();
         Behavior = new(this, new() { {
                 CreatureBehaviorMode.Type.Idle,
                 new() {
@@ -52,11 +33,11 @@ public partial class farmer : CharacterBody2D, ICreature
         });
     }
 
-    bool ProcessCreatureInVision(ICreature creature)
+    bool ProcessCreatureInVision(Creature creature)
     {
-        if (ICreature.IsEnemy(this, creature))
+        if (IsEnemy(this, creature))
         {
-            ((ICreature)this).Scare(creature);
+            Scare(creature);
             return true;
         }
         return false;
@@ -64,12 +45,12 @@ public partial class farmer : CharacterBody2D, ICreature
 
     public override void _Draw()
     {
-        ((ICreature)this).CreatureDraw();
+        CreatureDraw();
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        ((ICreature)this).CreatureProcessPhysics(delta);
+        CreatureProcessPhysics(delta);
         Behavior.ProcessPhysics(delta);
     }
 
