@@ -7,7 +7,7 @@ public class CreatureBehaviorMode
     public enum Type
     {
         Idle,
-        Walking,
+        Navigating,
         Wandering,
         Hunting,
         Scared,
@@ -34,6 +34,15 @@ public class CreatureBehaviorMode
     /// <summary> Whether the sprite should flip horizontally or not. By default looks at the velocity of the creature. (<see cref="DefaultGetFlip"/>) </summary>
     /// <remarks> (ICreature creature, double delta) </remarks>
     public Func<ICreature, double, bool?> GetFlip { get; init; } = DefaultGetFlip;
+
+    /// <summary> If set to true, the movement logic will use Godot's navmesh to avoid obsticales. </summary>
+    public bool UseNavigationMesh { get; init; }
+
+    /// <summary> The speed to navigate towards the target if using the navigation mesh. </summary>
+    public float NavigationSpeed { get; init; } = 200f;
+
+    /// <summary> The target coordinate to move towards if using the navigation mesh. </summary>
+    public Vector2 NavigationTarget { get; init; }
 
     /// <summary> If true, this creature will not commit to any actions until this mode is through. </summary>
     public bool Distracted { get; init; }

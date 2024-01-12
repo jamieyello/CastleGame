@@ -25,17 +25,42 @@ namespace Castle.Scenes.Entities.Creatures
         double? time;
         Vector2? direction;
 
+        private NavigationAgent2D navigation_agent;
+
+        bool processing;
+        CreatureBehaviorMode.Type? change_mode;
+
+        // MAINTAINANCE AREA
+        private Vector2 _movementTargetPosition = new Vector2(70.0f, 226.0f);
+        // MAINTAINANCE AREA
+
         public CreatureBehavior(ICreature creature, Dictionary<CreatureBehaviorMode.Type, CreatureBehaviorMode> modes)
         {
             this.creature = creature;
             body = (CharacterBody2D)creature;
             sprite = body.GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+            navigation_agent = body.GetNode<NavigationAgent2D>("NavigationAgent2D");
+
+            // MAINTAINANCE AREA
+            navigation_agent.PathDesiredDistance = 4.0f;
+            navigation_agent.TargetDesiredDistance = 4.0f;
+
+            // Make sure to not await during _Ready.
+            Callable.From(ActorSetup).CallDeferred();
+            // MAINTAINANCE AREA
+
             this.modes = new(modes);
             ChangeMode(CreatureBehaviorMode.Type.Idle);
         }
 
-        bool processing;
-        CreatureBehaviorMode.Type? change_mode;
+        private async void ActorSetup()
+        {
+            // Wait for the first physics frame so the NavigationServer can sync.
+            await body.ToSignal(body.GetTree(), SceneTree.SignalName.PhysicsFrame);
+
+            // Now that the navigation map is no longer empty, set the movement target.
+            navigation_agent.TargetPosition = _movementTargetPosition;
+        }
 
         public void ProcessPhysics(double delta) {
             if (this.mode.RequireFocus && (
@@ -44,16 +69,29 @@ namespace Castle.Scenes.Entities.Creatures
                     Focus.AsNode().IsQueuedForDeletion()
                 )) ChangeMode(this.mode.NextMode);
             
-
             var velocity = body.Velocity;
 
             // Don't act on changes to the mode mid-callbacks
             var mode = this.mode;
 
             velocity *= mode.Friction;
-            if (direction != null) velocity += direction.Value;
-            if (mode.GetAdditionalDirection != null) velocity += mode.GetAdditionalDirection(delta);
-            if (mode.Halt) velocity = Vector2.Zero;
+
+            if (mode.UseNavigationMesh)
+            {
+                if (!navigation_agent.IsNavigationFinished())
+                {
+                    Vector2 currentAgentPosition = body.GlobalTransform.Origin;
+                    Vector2 nextPathPosition = navigation_agent.GetNextPathPosition();
+                    body.Velocity = currentAgentPosition.DirectionTo(nextPathPosition) * mode.NavigationSpeed;
+                }
+            }
+            else
+            {
+                if (direction != null) velocity += direction.Value;
+                if (mode.GetAdditionalDirection != null) velocity += mode.GetAdditionalDirection(delta);
+                if (mode.Halt) velocity = Vector2.Zero;
+            }
+
             if (mode.ProcessCreatureInVision != null) {
                 foreach (var c in creatures_in_vision) {
                     if (mode.ProcessCreatureInVision(c)) break;

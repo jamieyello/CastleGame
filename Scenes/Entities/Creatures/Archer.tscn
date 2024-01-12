@@ -41,5 +41,7 @@ shape = SubResource("RectangleShape2D_2oh31")
 shape = SubResource("CircleShape2D_g7bsr")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
 [connection signal="body_entered" from="Vision" to="." method="_BodyEnteredVision"]
 [connection signal="body_exited" from="Vision" to="." method="_BodyExitedVision"]
