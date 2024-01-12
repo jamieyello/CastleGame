@@ -2,7 +2,7 @@ using Castle.Scenes.Entities.Creatures;
 using Godot;
 using System;
 
-public partial class Farmer : Creature
+public partial class farmer : Creature
 {
     public override void _Ready()
     {

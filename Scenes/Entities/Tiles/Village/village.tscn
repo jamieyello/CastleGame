@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://ep0bgyam1dce"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/Village.cs" id="1_ghxk3"]
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Village/village.cs" id="1_ghxk3"]
 [ext_resource type="Texture2D" uid="uid://cgyfj02fxlndx" path="res://Sprites/village_tile.png" id="1_y70ab"]
+[ext_resource type="PackedScene" uid="uid://d0lisl2ip3qui" path="res://Scenes/Entities/Tiles/Village/Components/little_guy.tscn" id="2_5o0vh"]
 [ext_resource type="Script" path="res://Scenes/Entities/Tiles/Population.cs" id="3_mk0a5"]
-[ext_resource type="PackedScene" uid="uid://d0lisl2ip3qui" path="res://Scenes/Entities/Tiles/Village/Components/LittleGuy.tscn" id="4_rcghj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0s6ar"]
 size = Vector2(28, 28)
@@ -75,8 +75,6 @@ polygon = PackedVector2Array(-10, -16, -16, -16, -20, -20, -20, -32, -12, -40, -
 
 [node name="Population" type="Node2D" parent="."]
 script = ExtResource("3_mk0a5")
-Creature = ExtResource("4_rcghj")
-MaxCreatureCount = null
-CreatureCount = null
+Creature = ExtResource("2_5o0vh")
 
 [node name="SpawnPoints" type="Node2D" parent="Population"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ye6gcpnuuj8m"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Farm/Components/Farmer.cs" id="1_1rb26"]
-[ext_resource type="Texture2D" uid="uid://c3ph4ndsw0hkb" path="res://Sprites/farmer.png" id="2_2nr75"]
+[ext_resource type="Texture2D" uid="uid://c3ph4ndsw0hkb" path="res://Sprites/farmer.png" id="1_82o3d"]
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Farm/Components/farmer.cs" id="1_n6wro"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_umwio"]
 size = Vector2(4, 7)
@@ -12,7 +12,7 @@ size = Vector2(4, 7)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_2nr75")
+"texture": ExtResource("1_82o3d")
 }],
 "loop": true,
 "name": &"default",
@@ -26,7 +26,7 @@ radius = 47.0
 texture_filter = 1
 collision_layer = 4
 collision_mask = 4
-script = ExtResource("1_1rb26")
+script = ExtResource("1_n6wro")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public partial class SelectRect : Area2D
+public partial class select_rect : Area2D
 {
 	/// <summary> A list of all contained creatures. Not necessarily the target team. </summary>
 	List<Creature> contained_creatures = new();

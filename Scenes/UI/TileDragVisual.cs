@@ -7,14 +7,14 @@ public partial class TileDragVisual : Control
 	[Export]
 	public TileStats Tile;
 
-    GameplayUi ui;
+    gameplay_ui ui;
 
     bool can_place;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
-        ui = GetParent<GameplayUi>();
+        ui = GetParent<gameplay_ui>();
         GetNode<TextureRect>("TextureRect").Texture = Tile.Preview;
 	}
 

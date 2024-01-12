@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Resources/TileStats.cs" id="1_21yry"]
 [ext_resource type="Texture2D" uid="uid://cgyfj02fxlndx" path="res://Sprites/village_tile.png" id="1_t1jk4"]
-[ext_resource type="PackedScene" uid="uid://ep0bgyam1dce" path="res://Scenes/Entities/Tiles/Village/Village.tscn" id="2_q7jnd"]
+[ext_resource type="PackedScene" uid="uid://ep0bgyam1dce" path="res://Scenes/Entities/Tiles/Village/village.tscn" id="2_q7jnd"]
 
 [resource]
 script = ExtResource("1_21yry")

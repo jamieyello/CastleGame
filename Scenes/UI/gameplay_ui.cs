@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class GameplayUi : Control
+public partial class gameplay_ui : Control
 {
 	public BuildingGrid BuildingGrid;
 }

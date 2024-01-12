@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://bs5expls0b52c"]
 
-[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Farm/Farm.cs" id="1_4qhb4"]
+[ext_resource type="Script" path="res://Scenes/Entities/Tiles/Farm/farm.cs" id="1_4qhb4"]
 [ext_resource type="Texture2D" uid="uid://dkbe8yllljgdh" path="res://Sprites/farm p1.png" id="2_fujax"]
 [ext_resource type="Texture2D" uid="uid://b00h3sh1a3k2l" path="res://Sprites/farm p3.png" id="3_bqxry"]
 [ext_resource type="Texture2D" uid="uid://c8wxpng53wcqf" path="res://Sprites/farm p2.png" id="4_urvd8"]
 [ext_resource type="Script" path="res://Scenes/Entities/Tiles/Population.cs" id="5_r8isg"]
-[ext_resource type="PackedScene" uid="uid://ye6gcpnuuj8m" path="res://Scenes/Entities/Tiles/Farm/Components/Farmer.tscn" id="6_tvk1k"]
+[ext_resource type="PackedScene" uid="uid://ye6gcpnuuj8m" path="res://Scenes/Entities/Tiles/Farm/Components/farmer.tscn" id="6_tvk1k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2o7bb"]
 animations = [{
@@ -67,7 +67,5 @@ polygon = PackedVector2Array(-32, -36, -32, -52, -12, -52, -12, -36, -16, -32, -
 [node name="Population" type="Node2D" parent="."]
 script = ExtResource("5_r8isg")
 Creature = ExtResource("6_tvk1k")
-MaxCreatureCount = null
-CreatureCount = null
 
 [node name="SpawnPoints" type="Node2D" parent="Population"]
