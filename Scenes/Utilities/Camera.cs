@@ -42,7 +42,7 @@ public partial class Camera : Camera2D
 
                 foreach (var selected_creature in GlobalData.Player.Runtime.Selection)
                 {
-                    selected_creature.
+                    selected_creature.MoveTo(mouse_drag_start.Value);
                 }
             }
 

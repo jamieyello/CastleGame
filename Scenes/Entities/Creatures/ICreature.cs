@@ -90,7 +90,7 @@ namespace Castle.Scenes.Entities.Creatures
 
         public void MoveTo(Vector2 position)
         {
-
+            
         }
 
         static bool IsEnemy(ICreature you, ICreature other) {
