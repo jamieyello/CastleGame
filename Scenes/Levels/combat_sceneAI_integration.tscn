@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bgs603sdgtc3e"]
+[gd_scene load_steps=18 format=3 uid="uid://dycji3qokt4kw"]
 
 [ext_resource type="Script" path="res://Scenes/Levels/combat_scene.cs" id="1_p4gsx"]
 [ext_resource type="Script" path="res://Scenes/Utilities/Camera.cs" id="2_krgkw"]
